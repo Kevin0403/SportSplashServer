@@ -1,0 +1,81 @@
+package com.example.sportsplash;
+
+import com.example.response.FileResponse;
+import com.example.sportsplash.service.sportsservice;
+import com.example.sportsplash.sports.Tournaments;
+import com.example.sportsplash.sports.User;
+import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.util.StreamUtils;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.List;
+
+@RestController
+@CrossOrigin("*")
+public class mycontroller {
+    @Autowired
+    private sportsservice sportsservice;
+    @GetMapping("/signup")
+    public List<User> getUser() {
+        return this.sportsservice.getUser();
+    }
+
+
+    @PostMapping("/signup")
+    public User createUser(@RequestBody User s){
+        return this.sportsservice.createUser(s);
+    }
+
+    @PutMapping("/signup")
+    public User updateUser(@RequestBody User s){
+        return this.sportsservice.updateUser(s);
+    }
+    @PostMapping("/verifyUser")
+    public User verifyUser(@RequestBody User s){
+        return this.sportsservice.verifyUser(s);
+    }
+    @DeleteMapping("/signup/{email}")
+    public ResponseEntity<HttpStatus> deletesports(@PathVariable String email) {
+        try {
+            this.sportsservice.deleteUser(email);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    @Value("${project.image}")
+    private  String path;
+
+    @PostMapping("/tournaments")
+    public ResponseEntity<HttpStatus> createTournament(@RequestBody Tournaments tournament) {
+
+        this.sportsservice.createTournament(tournament);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping("/upload")
+    public ResponseEntity<FileResponse> fileUpload(@RequestParam("image")MultipartFile image) throws IOException {
+        String fileName= null;
+        try {
+            fileName = this.sportsservice.uploadImage(path,image);
+        } catch (IOException e) {
+            return new ResponseEntity<>(new FileResponse(fileName,"Image is not successfully uploaded"),HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity<>(new FileResponse(fileName,"Image is successfully uploaded"),HttpStatus.OK);
+    }
+    @GetMapping(value = "/images/{imageName}",produces = MediaType.IMAGE_JPEG_VALUE )
+    public void downloadImage(@PathVariable("imageName")String imageName, HttpServletResponse response) throws IOException {
+        InputStream resource=this.sportsservice.getResource(path,imageName);
+        response.setContentType(MediaType.IMAGE_JPEG_VALUE);
+        StreamUtils.copy(resource,response.getOutputStream());
+    }
+
+}
