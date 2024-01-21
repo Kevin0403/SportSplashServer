@@ -15,7 +15,7 @@ public interface sportsservice {
     public User createUser(User s);
     public User updateUser(User s);
     public void deleteUser(String email);
-    public void createTournament(Tournaments t);
+    public Tournaments createTournament(Tournaments t);
     InputStream getResource(String path, String fileName) throws FileNotFoundException;
 
     public String uploadImage(String path, MultipartFile file) throws IOException;

@@ -112,7 +112,7 @@ public class sportsserviceimpl implements sportsservice{
 
     @Override
     @Transactional
-    public void createTournament(Tournaments t) {
+    public Tournaments createTournament(Tournaments t) {
         // Retrieve or create user entity
         User existingUser = sd.findByEmail(t.getUser().getEmail());
 
@@ -134,5 +134,6 @@ public class sportsserviceimpl implements sportsservice{
         }
 
         td.save(t);
+        return t;
     }
 }

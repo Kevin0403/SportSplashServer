@@ -7,7 +7,7 @@ public class Tournaments {
 
     @Id
     @GeneratedValue
-    int tournament_id;
+    int id;
 
     public Tournaments( String tournamentName, String game, String startDate, String endDate, int teamSize, int teams) {
         this.tournamentName = tournamentName;
@@ -29,12 +29,12 @@ public class Tournaments {
      private User user;
 
 
-    public int getTournament_id() {
-        return tournament_id;
+    public int getId() {
+        return id;
     }
    
-    public void setTournament_id(int tournament_id) {
-        this.tournament_id = tournament_id;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Tournaments() {
@@ -45,11 +45,11 @@ public class Tournaments {
 
 
 
-    public String gettournamentName() {
+    public String getTournamentName() {
         return tournamentName;
     }
 
-    public void settournamentName(String tournamentName) {
+    public void setTournamentName(String tournamentName) {
         this.tournamentName = tournamentName;
     }
 
@@ -85,8 +85,8 @@ public class Tournaments {
         this.teamSize = teamSize;
     }
 
-    public Tournaments(int tournament_id, String tournamentName, String game, String startDate, String endDate, int teamSize, int teams, User user) {
-        this.tournament_id = tournament_id;
+    public Tournaments(int id, String tournamentName, String game, String startDate, String endDate, int teamSize, int teams, User user) {
+        this.id = id;
         this.tournamentName = tournamentName;
         this.game = game;
         this.startDate = startDate;
@@ -105,7 +105,7 @@ public class Tournaments {
     @Override
     public String toString() {
         return "Tournaments{" +
-                "tournament_id=" + tournament_id +
+                "id=" + id +
                 ", tournamentName='" + tournamentName + '\'' +
                 ", game='" + game + '\'' +
                 ", startDate='" + startDate + '\'' +
@@ -134,10 +134,4 @@ public class Tournaments {
 
         this.teams = teams;
     }
-
-
-
-
-
-
 }

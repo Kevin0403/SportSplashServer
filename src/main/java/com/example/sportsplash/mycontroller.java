@@ -55,10 +55,9 @@ public class mycontroller {
     private  String path;
 
     @PostMapping("/tournaments")
-    public ResponseEntity<HttpStatus> createTournament(@RequestBody Tournaments tournament) {
+    public Tournaments createTournament(@RequestBody Tournaments tournament) {
 
-        this.sportsservice.createTournament(tournament);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return this.sportsservice.createTournament(tournament);
     }
 
     @PostMapping("/upload")
