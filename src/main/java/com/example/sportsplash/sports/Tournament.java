@@ -3,21 +3,10 @@ package com.example.sportsplash.sports;
 import jakarta.persistence.*;
 
 @Entity
-public class Tournaments {
+public class Tournament {
 
     @Id
-    @GeneratedValue
     int id;
-
-    public Tournaments( String tournamentName, String game, String startDate, String endDate, int teamSize, int teams) {
-        this.tournamentName = tournamentName;
-        this.game = game;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.teamSize = teamSize;
-        this.teams = teams;
-    }
-
     String tournamentName;
     String game;
     String startDate;
@@ -37,7 +26,7 @@ public class Tournaments {
         this.id = id;
     }
 
-    public Tournaments() {
+    public Tournament() {
         super();
 
 
@@ -85,8 +74,8 @@ public class Tournaments {
         this.teamSize = teamSize;
     }
 
-    public Tournaments(int id, String tournamentName, String game, String startDate, String endDate, int teamSize, int teams, User user) {
-        this.id = id;
+    public Tournament(int id, String tournamentName, String game, String startDate, String endDate, int teamSize, int teams, User user) {
+        this.id =id;
         this.tournamentName = tournamentName;
         this.game = game;
         this.startDate = startDate;
@@ -104,7 +93,7 @@ public class Tournaments {
 
     @Override
     public String toString() {
-        return "Tournaments{" +
+        return "Tournament{" +
                 "id=" + id +
                 ", tournamentName='" + tournamentName + '\'' +
                 ", game='" + game + '\'' +

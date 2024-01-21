@@ -99,9 +99,4 @@ public class User {
 
         super();
     }
-
-
-
-
-
 }

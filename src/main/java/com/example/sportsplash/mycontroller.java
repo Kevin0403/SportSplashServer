@@ -2,7 +2,9 @@ package com.example.sportsplash;
 
 import com.example.response.FileResponse;
 import com.example.sportsplash.service.sportsservice;
-import com.example.sportsplash.sports.Tournaments;
+import com.example.sportsplash.sports.Player;
+import com.example.sportsplash.sports.Team;
+import com.example.sportsplash.sports.Tournament;
 import com.example.sportsplash.sports.User;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,18 @@ public class mycontroller {
     public List<User> getUser() {
         return this.sportsservice.getUser();
     }
+    @GetMapping("/getTournaments")
+    public List<Tournament> getTournament(){
+        return this.sportsservice.getTournament();
+    }
+    @GetMapping("/getTeams")
+    public List<Team> getTeam(){
+        return this.sportsservice.getTeam();
+    }
+    @GetMapping("/getPlayers")
+    public List<Player> getPlayers(){
+        return this.sportsservice.getPlayes();
+    }
 
 
     @PostMapping("/signup")
@@ -42,6 +56,15 @@ public class mycontroller {
     public User verifyUser(@RequestBody User s){
         return this.sportsservice.verifyUser(s);
     }
+    @GetMapping("/getTournament/{id}")
+    public Tournament gettournament(@PathVariable int id){
+        return this.sportsservice.gettournament(id);
+    }
+    @GetMapping("/getTeam/{id}")
+    public Team getteam(@PathVariable int id){
+        return this.sportsservice.getteam(id);
+    }
+
     @DeleteMapping("/signup/{email}")
     public ResponseEntity<HttpStatus> deletesports(@PathVariable String email) {
         try {
@@ -55,9 +78,17 @@ public class mycontroller {
     private  String path;
 
     @PostMapping("/tournaments")
-    public Tournaments createTournament(@RequestBody Tournaments tournament) {
+    public Tournament createTournament(@RequestBody Tournament tournament) {
 
         return this.sportsservice.createTournament(tournament);
+    }
+    @PostMapping("/team")
+    public Team createTeam(@RequestBody Team team){
+        return this.sportsservice.createTeam(team);
+    }
+    @PostMapping("/player")
+    public Player createPlayer(@RequestBody Player player){
+        return this.sportsservice.createPlayer(player);
     }
 
     @PostMapping("/upload")
@@ -76,5 +107,7 @@ public class mycontroller {
         response.setContentType(MediaType.IMAGE_JPEG_VALUE);
         StreamUtils.copy(resource,response.getOutputStream());
     }
+
+
 
 }

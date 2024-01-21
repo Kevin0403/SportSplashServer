@@ -1,8 +1,12 @@
 package com.example.sportsplash.service;
 
+import com.example.sportsplash.dao.playerdao;
 import com.example.sportsplash.dao.sportsdao;
+import com.example.sportsplash.dao.teamdao;
 import com.example.sportsplash.dao.tournamentdao;
-import com.example.sportsplash.sports.Tournaments;
+import com.example.sportsplash.sports.Player;
+import com.example.sportsplash.sports.Team;
+import com.example.sportsplash.sports.Tournament;
 import com.example.sportsplash.sports.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +26,10 @@ public class sportsserviceimpl implements sportsservice{
       private sportsdao sd;
       @Autowired
       private tournamentdao td;
+      @Autowired
+      private teamdao teamdao1;
+      @Autowired
+      private playerdao pd;
 
     public sportsserviceimpl() {
         super();
@@ -39,8 +47,32 @@ public class sportsserviceimpl implements sportsservice{
             return null;
     }
 
+    @Override
+    public Tournament gettournament(int id) {
+        Tournament t1=td.findById(id);
+        if(t1==null)
+            return null;
+        else
+            return t1;
 
 
+
+    }
+
+
+    @Override
+    public Team getteam(int id) {
+        Team team=teamdao1.findById(id);
+        if(team==null)
+          return null;
+        else
+            return team;
+    }
+
+    @Override
+    public List<Player> getPlayes() {
+        return pd.findAll();
+    }
 
     @Override
     public List<User> getUser(){
@@ -49,6 +81,16 @@ public class sportsserviceimpl implements sportsservice{
         return  sd.findAll();
     }
 
+
+    @Override
+    public List<Tournament> getTournament() {
+        return td.findAll();
+    }
+
+    @Override
+    public List<Team> getTeam() {
+        return teamdao1.findAll();
+    }
 
     @Override
     public User createUser(User s) {
@@ -112,28 +154,63 @@ public class sportsserviceimpl implements sportsservice{
 
     @Override
     @Transactional
-    public Tournaments createTournament(Tournaments t) {
-        // Retrieve or create user entity
+    public Tournament createTournament(Tournament t) {
         User existingUser = sd.findByEmail(t.getUser().getEmail());
 
         if (existingUser == null) {
-            // User doesn't exist, save the new user to the database
             User newUser = new User();
             newUser.setEmail(t.getUser().getEmail());
             sd.save(newUser);
             t.setUser(newUser);
         } else {
-            // User already exists, use the existing user
             t.setUser(existingUser);
         }
 
-        // Set other tournament properties based on your requirements
-        // tournament.setXXX(...);
         if (t.getUser() == null) {
             throw new IllegalArgumentException("User cannot be null in the tournament.");
         }
 
         td.save(t);
         return t;
+    }
+
+    @Override
+    public Team createTeam(Team t) {
+        Tournament tournaments=td.findById(t.getTournament().getId());
+        if(tournaments==null){
+            Tournament tournaments1=new Tournament();
+            tournaments1.setId(t.getTournament().getId());
+            td.save(tournaments1);
+            t.setTournament(tournaments1);
+        }
+        else
+        {
+            t.setTournament(tournaments);
+        }
+        if(t.getTournament()==null) {
+            throw new IllegalArgumentException("null");
+        }
+            teamdao1.save(t);
+
+            return t;
+    }
+    @Override
+    public Player createPlayer(Player p){
+         Team team=teamdao1.findById(p.getTeam().getId());
+         if(team==null){
+             Team team1=new Team();
+             team1.setId(p.getTeam().getId());
+             teamdao1.save(team1);
+             p.setTeam(team1);
+
+         }
+         else {
+             p.setTeam(team);
+         }
+         if (p.getTeam()==null){
+             throw new IllegalArgumentException("null");
+         }
+         pd.save(p);
+         return p;
     }
 }
