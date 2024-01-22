@@ -60,6 +60,11 @@ public class mycontroller {
     public Tournament gettournament(@PathVariable int id){
         return this.sportsservice.gettournament(id);
     }
+    @GetMapping("/tournament/{tournamentId}")
+    public ResponseEntity<List<Team>> getTeamsForTournament(@PathVariable int tournamentId) {
+        List<Team> teams = this.sportsservice.getTeamsForTournament(tournamentId);
+        return ResponseEntity.ok(teams);
+    }
     @GetMapping("/getTeam/{id}")
     public Team getteam(@PathVariable int id){
         return this.sportsservice.getteam(id);
@@ -107,7 +112,4 @@ public class mycontroller {
         response.setContentType(MediaType.IMAGE_JPEG_VALUE);
         StreamUtils.copy(resource,response.getOutputStream());
     }
-
-
-
 }

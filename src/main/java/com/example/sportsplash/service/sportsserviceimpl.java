@@ -58,6 +58,10 @@ public class sportsserviceimpl implements sportsservice{
 
 
     }
+    @Override
+    public List<Team> getTeamsForTournament(int tournamentId) {
+        return teamdao1.findTeamsByTournamentId(tournamentId);
+    }
 
 
     @Override

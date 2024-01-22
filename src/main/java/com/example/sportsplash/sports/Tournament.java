@@ -2,6 +2,8 @@ package com.example.sportsplash.sports;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 public class Tournament {
 

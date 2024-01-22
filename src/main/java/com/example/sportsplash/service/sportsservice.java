@@ -32,6 +32,8 @@ public interface sportsservice {
 
     Tournament gettournament(int id);
 
+    List<Team> getTeamsForTournament(int tournamentId);
+
     Team getteam(int id);
 
     List<Player> getPlayes();
