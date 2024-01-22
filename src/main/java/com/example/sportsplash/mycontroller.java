@@ -65,6 +65,11 @@ public class mycontroller {
         List<Team> teams = this.sportsservice.getTeamsForTournament(tournamentId);
         return ResponseEntity.ok(teams);
     }
+    @GetMapping("/team/{teamId}")
+    public ResponseEntity<List<Player>> getPlayersForTeam(@PathVariable int teamId) {
+        List<Player> players = this.sportsservice.getPlayersForTeam(teamId);
+        return ResponseEntity.ok(players);
+    }
     @GetMapping("/getTeam/{id}")
     public Team getteam(@PathVariable int id){
         return this.sportsservice.getteam(id);

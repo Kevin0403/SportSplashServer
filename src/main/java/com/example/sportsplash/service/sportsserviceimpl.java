@@ -84,6 +84,10 @@ public class sportsserviceimpl implements sportsservice{
 
         return  sd.findAll();
     }
+    @Override
+    public List<Player> getPlayersForTeam(int teamId) {
+        return pd.findPlayersByTeamId(teamId);
+    }
 
 
     @Override

@@ -26,6 +26,8 @@ public interface sportsservice {
 
     Player createPlayer(Player p);
 
+    List<Player> getPlayersForTeam(int teamId);
+
     List<Tournament> getTournament();
 
     List<Team> getTeam();
