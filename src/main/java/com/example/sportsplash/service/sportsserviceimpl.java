@@ -50,9 +50,6 @@ public class sportsserviceimpl implements sportsservice{
     @Override
     public Tournament gettournament(int id) {
         Tournament t1=td.findById(id);
-        if(t1==null)
-            return null;
-        else
             return t1;
 
 
@@ -67,10 +64,7 @@ public class sportsserviceimpl implements sportsservice{
     @Override
     public Team getteam(int id) {
         Team team=teamdao1.findById(id);
-        if(team==null)
-          return null;
-        else
-            return team;
+        return team;
     }
 
     @Override
