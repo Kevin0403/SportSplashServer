@@ -8,7 +8,7 @@ public class Team {
     int id;
     String name;
 
-    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_fk",referencedColumnName = "id")
     private Tournament tournament;
     public Tournament getTournament() {

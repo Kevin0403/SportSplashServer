@@ -15,7 +15,7 @@ public class Tournament {
     String endDate;
     int teamSize;
     int teams;
-    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
    @JoinColumn(name="email_FK",referencedColumnName = "email")
      private User user;
 

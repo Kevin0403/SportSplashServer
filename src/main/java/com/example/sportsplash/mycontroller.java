@@ -22,6 +22,8 @@ import java.util.List;
 public class mycontroller {
     @Autowired
     private sportsservice sportsservice;
+    @Value("${project.image}")
+    private  String path;
     /*For getting all the users */
     @GetMapping("/signup")
     public List<User> getUser() {
@@ -80,11 +82,12 @@ public class mycontroller {
         List<Player> players = this.sportsservice.getPlayersForTeam(teamId);
         return ResponseEntity.ok(players);
     }
+    /*For getting the team by id*/
     @GetMapping("/getTeam/{id}")
     public Team getteam(@PathVariable int id){
         return this.sportsservice.getteam(id);
     }
-
+    /*For deleting the user*/
     @DeleteMapping("/signup/{email}")
     public ResponseEntity<HttpStatus> deletesports(@PathVariable String email) {
         try {
@@ -94,23 +97,45 @@ public class mycontroller {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    @Value("${project.image}")
-    private  String path;
+    /*For deleting the tournament*/
+    @DeleteMapping("/tournament/{id}")
+    public ResponseEntity<HttpStatus> deletetournament(@PathVariable int id) {
+        try {
+            this.sportsservice.deletetournament(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    /*For deleting the team*/
+    @DeleteMapping("/team/{id}")
+    public ResponseEntity<HttpStatus> deleteteam(@PathVariable int id){
+        try {
+            this.sportsservice.deleteteam(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
+    /*For creating the tournament*/
     @PostMapping("/tournaments")
     public Tournament createTournament(@RequestBody Tournament tournament) {
 
         return this.sportsservice.createTournament(tournament);
     }
+    /*For creating the team*/
     @PostMapping("/team")
     public Team createTeam(@RequestBody Team team){
         return this.sportsservice.createTeam(team);
     }
+    /*For creating the player*/
     @PostMapping("/player")
     public Player createPlayer(@RequestBody Player player){
         return this.sportsservice.createPlayer(player);
     }
-
+    /*For uploading the file*/
     @PostMapping("/upload")
     public ResponseEntity<FileResponse> fileUpload(@RequestParam("image")MultipartFile image) throws IOException {
         String fileName= null;
@@ -121,6 +146,7 @@ public class mycontroller {
         }
         return new ResponseEntity<>(new FileResponse(fileName,"Image is successfully uploaded"),HttpStatus.OK);
     }
+    /*For serving the image*/
     @GetMapping(value = "/images/{imageName}",produces = MediaType.IMAGE_JPEG_VALUE )
     public void downloadImage(@PathVariable("imageName")String imageName, HttpServletResponse response) throws IOException {
         InputStream resource=this.sportsservice.getResource(path,imageName);

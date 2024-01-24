@@ -38,4 +38,8 @@ public interface sportsservice {
     List<Player> getPlayes();
 
     BadmintonMatch createBadmintonMatch(BadmintonMatch badmintonMatch);
+
+    void deletetournament(int id);
+
+    void deleteteam(int id);
 }

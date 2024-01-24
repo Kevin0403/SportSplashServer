@@ -131,13 +131,6 @@ public class sportsserviceimpl implements sportsservice{
         Files.copy(file.getInputStream(), Paths.get(filepath));
         return fileName1;
     }
-
-//    @Override
-//    public Tournaments createTournament(Tournaments t) {
-//        td.save(t);
-//        return t;
-//
-//    }
     @Override
     public User retrieveOrCreateUser(User user) {
         User existingUser = sd.findByEmail(user.getEmail());
@@ -257,6 +250,21 @@ public class sportsserviceimpl implements sportsservice{
         badMintonMatchdao.save(badmintonMatch);
         return badmintonMatch;
     }
+
+    @Override
+    public void deletetournament(int id) {
+        Tournament tournament=td.getReferenceById(id);
+         tournament.setUser(null);
+          td.delete(tournament);
+    }
+
+    @Override
+    public void deleteteam(int id) {
+        Team team=teamdao1.getReferenceById(id);
+        team.setTournament(null);
+        teamdao1.delete(team);
+    }
+
 }
 
 
