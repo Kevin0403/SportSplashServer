@@ -118,6 +118,17 @@ public class mycontroller {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    /*For deleting the player*/
+    @DeleteMapping("/player/{id}")
+    public ResponseEntity<HttpStatus> deleteplayer(@PathVariable int id){
+        try {
+            this.sportsservice.deleteplayer(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
     /*For creating the tournament*/
     @PostMapping("/tournaments")

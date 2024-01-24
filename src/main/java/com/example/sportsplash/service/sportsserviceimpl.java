@@ -265,6 +265,13 @@ public class sportsserviceimpl implements sportsservice{
         teamdao1.delete(team);
     }
 
+    @Override
+    public void deleteplayer(int id) {
+        Player player=pd.getReferenceById(id);
+        player.setTeam(null);
+        pd.delete(player);
+    }
+
 }
 
 
