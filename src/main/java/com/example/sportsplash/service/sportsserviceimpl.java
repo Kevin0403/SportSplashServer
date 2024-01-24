@@ -223,6 +223,7 @@ public class sportsserviceimpl implements sportsservice{
         }
         Team team1 = badmintonMatch.getTeam1();
         if (team1 == null) {
+            throw new IllegalArgumentException("Team1 cannot be null");
 
         }
         team1=teamdao1.findById(team1.getId());
@@ -233,6 +234,7 @@ public class sportsserviceimpl implements sportsservice{
         }
         Team team2 = badmintonMatch.getTeam2();
         if (team2 == null) {
+            throw new IllegalArgumentException("Team2 cannot be null");
 
         }
         team2=teamdao1.findById(team2.getId());
@@ -244,17 +246,14 @@ public class sportsserviceimpl implements sportsservice{
 
         Tournament tournament = badmintonMatch.getTournament();
         if (tournament == null) {
-
+            throw new IllegalArgumentException("Tournament cannot be null");
         }
         tournament=td.findById(tournament.getId());
         badmintonMatch.setTournament(tournament);
 
-
         if (tournament == null) {
             throw new IllegalArgumentException("Tournament does not exist in the database");
         }
-
-
         badMintonMatchdao.save(badmintonMatch);
         return badmintonMatch;
     }

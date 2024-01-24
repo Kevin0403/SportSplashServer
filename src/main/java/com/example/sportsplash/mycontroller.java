@@ -22,41 +22,47 @@ import java.util.List;
 public class mycontroller {
     @Autowired
     private sportsservice sportsservice;
+    /*For getting all the users */
     @GetMapping("/signup")
     public List<User> getUser() {
         return this.sportsservice.getUser();
     }
+    /*For getting all the tournaments created*/
     @GetMapping("/getTournaments")
     public List<Tournament> getTournament(){
         return this.sportsservice.getTournament();
     }
+    /*For getting all the teams created*/
     @GetMapping("/getTeams")
     public List<Team> getTeam(){
         return this.sportsservice.getTeam();
     }
+    /*For getting the list of Players*/
     @GetMapping("/getPlayers")
     public List<Player> getPlayers(){
         return this.sportsservice.getPlayes();
     }
-
-
+    /* For creating new user*/
     @PostMapping("/signup")
     public User createUser(@RequestBody User s){
         return this.sportsservice.createUser(s);
     }
-
+    /*For updating the user*/
     @PutMapping("/signup")
     public User updateUser(@RequestBody User s){
         return this.sportsservice.updateUser(s);
     }
+    /*For verifying the user*/
     @PostMapping("/verifyUser")
     public User verifyUser(@RequestBody User s){
         return this.sportsservice.verifyUser(s);
     }
+    /*For getting the tournament by id*/
     @GetMapping("/getTournament/{id}")
     public Tournament gettournament(@PathVariable int id){
         return this.sportsservice.gettournament(id);
     }
+    /*For getting all the teams in perticular tournament*/
     @GetMapping("/tournament/{tournamentId}")
     public ResponseEntity<List<Team>> getTeamsForTournament(@PathVariable int tournamentId) {
         List<Team> teams = this.sportsservice.getTeamsForTournament(tournamentId);
@@ -67,9 +73,8 @@ public class mycontroller {
     public BadmintonMatch createBadmintonMatch(@RequestBody BadmintonMatch badmintonMatch) {
 
             return this.sportsservice.createBadmintonMatch(badmintonMatch);
-
-
     }
+    /*For getting all players in perticular team*/
     @GetMapping("/team/{teamId}")
     public ResponseEntity<List<Player>> getPlayersForTeam(@PathVariable int teamId) {
         List<Player> players = this.sportsservice.getPlayersForTeam(teamId);

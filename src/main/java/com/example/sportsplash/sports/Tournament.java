@@ -131,7 +131,5 @@ public class Tournament {
     }
 
 
-    public boolean isEmpty() {
-        return true;
-    }
+
 }

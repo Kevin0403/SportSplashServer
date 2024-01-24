@@ -11,7 +11,6 @@ public class Team {
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinColumn(name = "id_fk",referencedColumnName = "id")
     private Tournament tournament;
-
     public Tournament getTournament() {
         if (tournament == null) {
             tournament = new Tournament();
@@ -23,9 +22,7 @@ public class Team {
         this.tournament = tournament;
     }
 
-    public int getTid() {
-        return id;
-    }
+
 
     @Override
     public String toString() {
@@ -36,9 +33,7 @@ public class Team {
                 '}';
     }
 
-    public void setTid(int tid) {
-        this.id = tid;
-    }
+
 
     public Team() {
         super();
@@ -70,10 +65,5 @@ public class Team {
 
     public Team(int id) {
         this.id = id;
-    }
-
-
-    public boolean isEmpty() {
-        return  true;
     }
 }
