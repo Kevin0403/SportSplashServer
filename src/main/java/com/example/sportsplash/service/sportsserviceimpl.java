@@ -227,7 +227,7 @@ public class sportsserviceimpl implements sportsservice{
         }
         team1=teamdao1.findById(team1.getId());
         badmintonMatch.setTeam1(team1);
-        if (teamdao1.findById(team1.getId()).isEmpty()) {
+        if (team1 == null) {
             throw new IllegalArgumentException("Team 1 does not exist in the database");
 
         }
@@ -237,7 +237,7 @@ public class sportsserviceimpl implements sportsservice{
         }
         team2=teamdao1.findById(team2.getId());
         badmintonMatch.setTeam2(team2);
-        if (teamdao1.findById(team2.getId()).isEmpty()) {
+        if (team2 == null) {
             throw new IllegalArgumentException("Team 2 does not exist in the database");
         }
 
@@ -250,18 +250,8 @@ public class sportsserviceimpl implements sportsservice{
         badmintonMatch.setTournament(tournament);
 
 
-        if (td.findById(tournament.getId()).isEmpty()) {
+        if (tournament == null) {
             throw new IllegalArgumentException("Tournament does not exist in the database");
-        }
-
-        User user = tournament.getUser();
-        if (user == null) {
-           user=sd.findByEmail(user.getEmail());
-           badmintonMatch.getTournament().setUser(user);
-        }
-
-        if (sd.findById(user.getEmail()).isEmpty()) {
-            throw new IllegalArgumentException("User in Tournament does not exist in the database");
         }
 
 
