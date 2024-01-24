@@ -7,7 +7,7 @@ import java.util.List;
 @Entity
 public class Tournament {
 
-    @Id
+    @Id@GeneratedValue(strategy=GenerationType.IDENTITY)
     int id;
     String tournamentName;
     String game;
@@ -91,6 +91,10 @@ public class Tournament {
     public int getTeams() {
 
         return teams;
+    }
+
+    public Tournament(int id) {
+        this.id = id;
     }
 
     @Override

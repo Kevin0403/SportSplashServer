@@ -1,13 +1,7 @@
 package com.example.sportsplash.service;
 
-import com.example.sportsplash.dao.playerdao;
-import com.example.sportsplash.dao.sportsdao;
-import com.example.sportsplash.dao.teamdao;
-import com.example.sportsplash.dao.tournamentdao;
-import com.example.sportsplash.sports.Player;
-import com.example.sportsplash.sports.Team;
-import com.example.sportsplash.sports.Tournament;
-import com.example.sportsplash.sports.User;
+import com.example.sportsplash.dao.*;
+import com.example.sportsplash.sports.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,6 +24,8 @@ public class sportsserviceimpl implements sportsservice{
       private teamdao teamdao1;
       @Autowired
       private playerdao pd;
+      @Autowired
+      private badMintonMatchdao badMintonMatchdao;
 
     public sportsserviceimpl() {
         super();
@@ -215,4 +211,57 @@ public class sportsserviceimpl implements sportsservice{
          pd.save(p);
          return p;
     }
+    @Override
+    public BadmintonMatch createBadmintonMatch(BadmintonMatch badmintonMatch) {
+        List<Team> teamList = badmintonMatch.getTeamList();
+        Tournament tournament = badmintonMatch.getTournament();
+        User user = tournament.getUser();
+
+        User existingUser = sd.findByEmail(user.getEmail());
+        if (existingUser == null) {
+            user.setEmail("Piyu1006@gmail.com");
+            sd.save(user);  // Save User if it doesn't exist
+        } else {
+            user = existingUser; // Update reference to existing User
+        }
+
+        // Handle Tournament Persistence
+        Tournament existingTournament = td.findById(tournament.getId());
+        if (existingTournament == null) {
+            Tournament newTournament = new Tournament();
+            newTournament.setId(tournament.getId());
+            newTournament.setUser(user);
+            td.save(newTournament);
+            badmintonMatch.setTournament(newTournament);
+        } else {
+            badmintonMatch.setTournament(existingTournament); // Use existing Tournament
+        }
+
+        // ... (Steps 5-8 remain the same)
+        // Ensure bidirectional relationship for Team -> Tournament
+        for (Team team : teamList) {
+            // Check if Team exists in the database
+            Team existingTeam = teamdao1.findById(team.getId());
+            if (existingTeam == null) {
+                // If Team does not exist, save it to the database
+                teamdao1.save(team);
+            } else {
+                // If Team exists, update the reference
+                team = existingTeam;
+            }
+
+            team.setTournament(badmintonMatch.getTournament());
+        }
+
+        // Ensure bidirectional relationship for Tournament -> User
+        badmintonMatch.getTournament().setUser(user);
+
+        // Save the match to the database
+      badMintonMatchdao.save(badmintonMatch);
+
+        return badmintonMatch;
+    }
+
+
+
 }

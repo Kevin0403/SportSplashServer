@@ -99,4 +99,9 @@ public class User {
 
         super();
     }
+
+
+    public User(String email) {
+        this.email = email;
+    }
 }

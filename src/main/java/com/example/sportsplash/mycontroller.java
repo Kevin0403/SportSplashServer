@@ -2,10 +2,7 @@ package com.example.sportsplash;
 
 import com.example.response.FileResponse;
 import com.example.sportsplash.service.sportsservice;
-import com.example.sportsplash.sports.Player;
-import com.example.sportsplash.sports.Team;
-import com.example.sportsplash.sports.Tournament;
-import com.example.sportsplash.sports.User;
+import com.example.sportsplash.sports.*;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -64,6 +61,15 @@ public class mycontroller {
     public ResponseEntity<List<Team>> getTeamsForTournament(@PathVariable int tournamentId) {
         List<Team> teams = this.sportsservice.getTeamsForTournament(tournamentId);
         return ResponseEntity.ok(teams);
+    }
+    @PostMapping("/create")
+    public ResponseEntity<BadmintonMatch> createBadmintonMatch(@RequestBody BadmintonMatch badmintonMatch) {
+        try {
+            BadmintonMatch createdMatch = this.sportsservice.createBadmintonMatch(badmintonMatch);
+            return new ResponseEntity<>(createdMatch, HttpStatus.CREATED);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
     @GetMapping("/team/{teamId}")
     public ResponseEntity<List<Player>> getPlayersForTeam(@PathVariable int teamId) {

@@ -1,9 +1,6 @@
 package com.example.sportsplash.sports;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 
 @Entity
 public class Player {
@@ -40,7 +37,7 @@ public class Player {
         this.team = team;
     }
 
-    @Id
+    @Id@GeneratedValue
     int id;
 
     @Override
@@ -60,5 +57,9 @@ public class Player {
 
     public Player() {
         super();
+    }
+
+    public Player(int id) {
+        this.id = id;
     }
 }

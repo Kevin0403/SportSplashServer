@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 @Entity
 public class Team {
-    @Id
+    @Id@GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
     String name;
 
@@ -66,5 +66,9 @@ public class Team {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Team(int id) {
+        this.id = id;
     }
 }

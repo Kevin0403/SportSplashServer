@@ -1,9 +1,6 @@
 package com.example.sportsplash.service;
 
-import com.example.sportsplash.sports.Player;
-import com.example.sportsplash.sports.Team;
-import com.example.sportsplash.sports.Tournament;
-import com.example.sportsplash.sports.User;
+import com.example.sportsplash.sports.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.FileNotFoundException;
@@ -39,4 +36,6 @@ public interface sportsservice {
     Team getteam(int id);
 
     List<Player> getPlayes();
+
+    BadmintonMatch createBadmintonMatch(BadmintonMatch badmintonMatch);
 }
