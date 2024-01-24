@@ -44,4 +44,8 @@ public interface sportsservice {
     void deleteteam(int id);
 
     void deleteplayer(int id);
+
+    void deleteBadmintonMatch(int id);
+
+    void deleteTeamPlayers(int id);
 }
