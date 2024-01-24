@@ -8,22 +8,35 @@ import java.util.List;
 public class BadmintonMatch {
     @Id
     int id;
-    int team1id;
+    int team1score;
+    int team2score;
+    @ManyToOne
+    @JoinColumn(name = "team1_fk",referencedColumnName = "id")
+   private Team team1;
 
-    public BadmintonMatch(int id, int team1id, int team2id, int team1score, int team2score, String startTime, String endTime, Tournament tournament, List<Team> teamList) {
+    @ManyToOne
+    @JoinColumn(name = "team2_fk",referencedColumnName = "id")
+   private Team team2;
+    String stime;
+    String etime;
+    @ManyToOne
+    private  Tournament tournament;
+
+
+    public BadmintonMatch(int id, int team1score, int team2score, Team team1, Team team2, String stime, String etime, Tournament tournament) {
         this.id = id;
-        this.team1id = team1id;
-        this.team2id = team2id;
         this.team1score = team1score;
         this.team2score = team2score;
-        this.startTime = startTime;
-        this.endTime = endTime;
+        this.team1 = team1;
+        this.team2 = team2;
+        this.stime = stime;
+        this.etime = etime;
         this.tournament = tournament;
-        this.teamList = teamList;
     }
 
-
-    int team2id;
+    public BadmintonMatch() {
+        super();
+    }
 
     public int getId() {
         return id;
@@ -31,22 +44,6 @@ public class BadmintonMatch {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getTeam1id() {
-        return team1id;
-    }
-
-    public void setTeam1id(int team1id) {
-        this.team1id = team1id;
-    }
-
-    public int getTeam2id() {
-        return team2id;
-    }
-
-    public void setTeam2id(int team2id) {
-        this.team2id = team2id;
     }
 
     public int getTeam1score() {
@@ -65,20 +62,36 @@ public class BadmintonMatch {
         this.team2score = team2score;
     }
 
-    public String getStartTime() {
-        return startTime;
+    public Team getTeam1() {
+        return team1;
     }
 
-    public void setStartTime(String startTime) {
-        this.startTime = startTime;
+    public void setTeam1(Team team1) {
+        this.team1 = team1;
     }
 
-    public String getEndTime() {
-        return endTime;
+    public Team getTeam2() {
+        return team2;
     }
 
-    public void setEndTime(String endTime) {
-        this.endTime = endTime;
+    public void setTeam2(Team team2) {
+        this.team2 = team2;
+    }
+
+    public String getStime() {
+        return stime;
+    }
+
+    public void setStime(String stime) {
+        this.stime = stime;
+    }
+
+    public String getEtime() {
+        return etime;
+    }
+
+    public void setEtime(String etime) {
+        this.etime = etime;
     }
 
     public Tournament getTournament() {
@@ -89,46 +102,21 @@ public class BadmintonMatch {
         this.tournament = tournament;
     }
 
-    public List<Team> getTeamList() {
-        return teamList;
-    }
-
-    public void setTeamList(List<Team> teamList) {
-        this.teamList = teamList;
-    }
-
-    int team1score;
-    int team2score;
-    String startTime;
-    String endTime;
-
-    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    @JoinColumn(name = "tournament_fk",referencedColumnName = "id")
-    private  Tournament tournament;
-
-    @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    private List<Team> teamList;
-
-    public BadmintonMatch() {
-        super();
-    }
-
-    public BadmintonMatch(int id) {
-        this.id = id;
-    }
-
     @Override
     public String toString() {
         return "BadmintonMatch{" +
                 "id=" + id +
-                ", team1id=" + team1id +
-                ", team2id=" + team2id +
                 ", team1score=" + team1score +
                 ", team2score=" + team2score +
-                ", startTime='" + startTime + '\'' +
-                ", endTime='" + endTime + '\'' +
+                ", team1=" + team1 +
+                ", team2=" + team2 +
+                ", stime='" + stime + '\'' +
+                ", etime='" + etime + '\'' +
                 ", tournament=" + tournament +
-                ", teamList=" + teamList +
                 '}';
+    }
+
+    public BadmintonMatch(int id) {
+        this.id = id;
     }
 }

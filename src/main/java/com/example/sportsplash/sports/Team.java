@@ -71,4 +71,9 @@ public class Team {
     public Team(int id) {
         this.id = id;
     }
+
+
+    public boolean isEmpty() {
+        return  true;
+    }
 }

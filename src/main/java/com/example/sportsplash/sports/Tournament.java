@@ -129,4 +129,9 @@ public class Tournament {
 
         this.teams = teams;
     }
+
+
+    public boolean isEmpty() {
+        return true;
+    }
 }

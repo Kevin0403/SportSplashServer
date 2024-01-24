@@ -62,14 +62,13 @@ public class mycontroller {
         List<Team> teams = this.sportsservice.getTeamsForTournament(tournamentId);
         return ResponseEntity.ok(teams);
     }
+    /* For creating BadmintonMatch */
     @PostMapping("/create")
-    public ResponseEntity<BadmintonMatch> createBadmintonMatch(@RequestBody BadmintonMatch badmintonMatch) {
-        try {
-            BadmintonMatch createdMatch = this.sportsservice.createBadmintonMatch(badmintonMatch);
-            return new ResponseEntity<>(createdMatch, HttpStatus.CREATED);
-        } catch (IllegalArgumentException e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+    public BadmintonMatch createBadmintonMatch(@RequestBody BadmintonMatch badmintonMatch) {
+
+            return this.sportsservice.createBadmintonMatch(badmintonMatch);
+
+
     }
     @GetMapping("/team/{teamId}")
     public ResponseEntity<List<Player>> getPlayersForTeam(@PathVariable int teamId) {

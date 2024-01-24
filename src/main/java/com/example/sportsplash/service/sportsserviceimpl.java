@@ -211,57 +211,57 @@ public class sportsserviceimpl implements sportsservice{
          pd.save(p);
          return p;
     }
+
+
+
+
     @Override
     public BadmintonMatch createBadmintonMatch(BadmintonMatch badmintonMatch) {
-        List<Team> teamList = badmintonMatch.getTeamList();
+
+        if (badmintonMatch == null) {
+            throw new IllegalArgumentException("BadmintonMatch object cannot be null");
+        }
+        Team team1 = badmintonMatch.getTeam1();
+        if (team1 == null) {
+            throw new IllegalArgumentException("Team 1 cannot be null");
+        }
+        if (teamdao1.findById(team1.getId()).isEmpty()) {
+            throw new IllegalArgumentException("Team 1 does not exist in the database");
+        }
+        Team team2 = badmintonMatch.getTeam2();
+        if (team2 == null) {
+            throw new IllegalArgumentException("Team 2 cannot be null");
+        }
+        if (teamdao1.findById(team2.getId()).isEmpty()) {
+            throw new IllegalArgumentException("Team 2 does not exist in the database");
+        }
+
+
         Tournament tournament = badmintonMatch.getTournament();
+        if (tournament == null) {
+            throw new IllegalArgumentException("Tournament cannot be null");
+        }
+
+
+        if (td.findById(tournament.getId()).isEmpty()) {
+            throw new IllegalArgumentException("Tournament does not exist in the database");
+        }
+
         User user = tournament.getUser();
-
-        User existingUser = sd.findByEmail(user.getEmail());
-        if (existingUser == null) {
-            user.setEmail("Piyu1006@gmail.com");
-            sd.save(user);  // Save User if it doesn't exist
-        } else {
-            user = existingUser; // Update reference to existing User
+        if (user == null) {
+            throw new IllegalArgumentException("User in Tournament cannot be null");
         }
 
-        // Handle Tournament Persistence
-        Tournament existingTournament = td.findById(tournament.getId());
-        if (existingTournament == null) {
-            Tournament newTournament = new Tournament();
-            newTournament.setId(tournament.getId());
-            newTournament.setUser(user);
-            td.save(newTournament);
-            badmintonMatch.setTournament(newTournament);
-        } else {
-            badmintonMatch.setTournament(existingTournament); // Use existing Tournament
+        if (sd.findById(user.getEmail()).isEmpty()) {
+            throw new IllegalArgumentException("User in Tournament does not exist in the database");
         }
 
-        // ... (Steps 5-8 remain the same)
-        // Ensure bidirectional relationship for Team -> Tournament
-        for (Team team : teamList) {
-            // Check if Team exists in the database
-            Team existingTeam = teamdao1.findById(team.getId());
-            if (existingTeam == null) {
-                // If Team does not exist, save it to the database
-                teamdao1.save(team);
-            } else {
-                // If Team exists, update the reference
-                team = existingTeam;
-            }
 
-            team.setTournament(badmintonMatch.getTournament());
-        }
-
-        // Ensure bidirectional relationship for Tournament -> User
-        badmintonMatch.getTournament().setUser(user);
-
-        // Save the match to the database
-      badMintonMatchdao.save(badmintonMatch);
-
+        badMintonMatchdao.save(badmintonMatch);
         return badmintonMatch;
     }
-
-
-
 }
+
+
+
+
