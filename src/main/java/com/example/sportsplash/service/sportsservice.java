@@ -50,4 +50,10 @@ public interface sportsservice {
     void deleteTeamPlayers(int id);
 
     List<BadmintonMatch> getMatchesForTournament(int id);
+
+    Tournament updateTournament(Tournament tournament);
+
+    Team updateTeam(Team team);
+
+    Player updatePlayer(Player player);
 }

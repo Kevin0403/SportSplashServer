@@ -54,6 +54,21 @@ public class mycontroller {
     public User updateUser(@RequestBody User s){
         return this.sportsservice.updateUser(s);
     }
+    /*For updating the tournament*/
+    @PutMapping("/tournament")
+    public Tournament updateTournament(@RequestBody Tournament tournament){
+        return this.sportsservice.updateTournament(tournament);
+    }
+    /*For updating the team*/
+    @PutMapping("/team")
+    public Team updateTeam(@RequestBody Team team){
+        return this.sportsservice.updateTeam(team);
+    }
+    /*For updating the player*/
+    @PutMapping("/player")
+    public Player updatePlayer(@RequestBody Player player){
+        return this.sportsservice.updatePlayer(player);
+    }
     /*For verifying the user*/
     @PostMapping("/verifyUser")
     public User verifyUser(@RequestBody User s){

@@ -294,8 +294,65 @@ public class sportsserviceimpl implements sportsservice{
         return badMintonMatchdao.findBadmintonMatchByTournamentId(id);
     }
 
+    @Override
+    public Tournament updateTournament(Tournament tournament) {
+        User existingUser = sd.findByEmail(tournament.getUser().getEmail());
 
+        if (existingUser == null) {
+            User newUser = new User();
+            newUser.setEmail(tournament.getUser().getEmail());
+            sd.save(newUser);
+            tournament.setUser(newUser);
+        } else {
+            tournament.setUser(existingUser);
+        }
+        td.save(tournament);
+        return tournament;
+    }
+
+    @Override
+    public Team updateTeam(Team team) {
+        Tournament tournaments=td.findById(team.getTournament().getId());
+        if(tournaments==null){
+            Tournament tournaments1=new Tournament();
+            tournaments1.setId(team.getTournament().getId());
+            td.save(tournaments1);
+            team.setTournament(tournaments1);
+        }
+        else
+        {
+            team.setTournament(tournaments);
+        }
+        if(team.getTournament()==null) {
+            throw new IllegalArgumentException("null");
+        }
+        teamdao1.save(team);
+
+        return team;
+    }
+
+    @Override
+    public Player updatePlayer(Player player) {
+        Team team=teamdao1.findById(player.getTeam().getId());
+        if(team==null){
+            Team team1=new Team();
+            team1.setId(player.getTeam().getId());
+            teamdao1.save(team1);
+            player.setTeam(team1);
+
+        }
+        else {
+            player.setTeam(team);
+        }
+        if (player.getTeam()==null){
+            throw new IllegalArgumentException("null");
+        }
+        pd.save(player);
+        return player;
+    }
 }
+
+
 
 
 
