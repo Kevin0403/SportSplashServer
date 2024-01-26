@@ -56,4 +56,6 @@ public interface sportsservice {
     Team updateTeam(Team team);
 
     Player updatePlayer(Player player);
+
+    BadmintonMatch updateBadmintonMatch(BadmintonMatch badmintonMatch);
 }
