@@ -48,4 +48,6 @@ public interface sportsservice {
     void deleteBadmintonMatch(int id);
 
     void deleteTeamPlayers(int id);
+
+    List<BadmintonMatch> getMatchesForTournament(int id);
 }

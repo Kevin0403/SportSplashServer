@@ -53,9 +53,9 @@ public class sportsserviceimpl implements sportsservice{
     }
     @Override
     public List<Team> getTeamsForTournament(int tournamentId) {
+
         return teamdao1.findTeamsByTournamentId(tournamentId);
     }
-
 
     @Override
     public Team getteam(int id) {
@@ -287,6 +287,11 @@ public class sportsserviceimpl implements sportsservice{
         team.setTournament(null);
         pd.deleteByTeamId(id);
         teamdao1.delete(team);
+    }
+
+    @Override
+    public List<BadmintonMatch> getMatchesForTournament(int id) {
+        return badMintonMatchdao.findBadmintonMatchByTournamentId(id);
     }
 
 

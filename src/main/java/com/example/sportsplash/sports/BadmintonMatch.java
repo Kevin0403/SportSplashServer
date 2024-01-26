@@ -6,7 +6,7 @@ import java.util.List;
 
 @Entity
 public class BadmintonMatch {
-    @Id
+    @Id@GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
     int team1score;
     int team2score;
@@ -17,20 +17,26 @@ public class BadmintonMatch {
     @ManyToOne
     @JoinColumn(name = "team2_fk",referencedColumnName = "id")
    private Team team2;
-    String stime;
-    String etime;
+    String startTime;
+    String endTime;
+
+    String startDate;
+    String endDate;
+
     @ManyToOne
     private  Tournament tournament;
 
 
-    public BadmintonMatch(int id, int team1score, int team2score, Team team1, Team team2, String stime, String etime, Tournament tournament) {
+    public BadmintonMatch(int id, int team1score, int team2score, Team team1, Team team2, String startTime, String endTime, String startDate, String endDate, Tournament tournament) {
         this.id = id;
         this.team1score = team1score;
         this.team2score = team2score;
         this.team1 = team1;
         this.team2 = team2;
-        this.stime = stime;
-        this.etime = etime;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.startDate = startDate;
+        this.endDate = endDate;
         this.tournament = tournament;
     }
 
@@ -78,20 +84,36 @@ public class BadmintonMatch {
         this.team2 = team2;
     }
 
-    public String getStime() {
-        return stime;
+    public String getStartTime() {
+        return startTime;
     }
 
-    public void setStime(String stime) {
-        this.stime = stime;
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
     }
 
-    public String getEtime() {
-        return etime;
+    public String getEndTime() {
+        return endTime;
     }
 
-    public void setEtime(String etime) {
-        this.etime = etime;
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
+    }
+
+    public String getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
+
+    public String getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
     }
 
     public Tournament getTournament() {
@@ -102,6 +124,7 @@ public class BadmintonMatch {
         this.tournament = tournament;
     }
 
+
     @Override
     public String toString() {
         return "BadmintonMatch{" +
@@ -110,8 +133,10 @@ public class BadmintonMatch {
                 ", team2score=" + team2score +
                 ", team1=" + team1 +
                 ", team2=" + team2 +
-                ", stime='" + stime + '\'' +
-                ", etime='" + etime + '\'' +
+                ", startTime='" + startTime + '\'' +
+                ", endTime='" + endTime + '\'' +
+                ", startDate='" + startDate + '\'' +
+                ", endDate='" + endDate + '\'' +
                 ", tournament=" + tournament +
                 '}';
     }

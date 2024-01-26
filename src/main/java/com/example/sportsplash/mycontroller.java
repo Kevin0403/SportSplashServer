@@ -70,6 +70,12 @@ public class mycontroller {
         List<Team> teams = this.sportsservice.getTeamsForTournament(tournamentId);
         return ResponseEntity.ok(teams);
     }
+    /*For getting all the matches in perticular tournament*/
+    @GetMapping("/tournamentmatch/{id}")
+    public ResponseEntity<List<BadmintonMatch>> getMatchesForTournament(@PathVariable int id){
+        List<BadmintonMatch> matches=this.sportsservice.getMatchesForTournament(id);
+        return ResponseEntity.ok(matches);
+    }
     /* For creating BadmintonMatch */
     @PostMapping("/create")
     public BadmintonMatch createBadmintonMatch(@RequestBody BadmintonMatch badmintonMatch) {
@@ -143,6 +149,7 @@ public class mycontroller {
     /*For deleting the team with players*/
     @DeleteMapping("/deleteteamplayer/{id}")
     public void deleteTeamPlayers(@PathVariable int id){
+
 
             this.sportsservice.deleteTeamPlayers(id);
 
