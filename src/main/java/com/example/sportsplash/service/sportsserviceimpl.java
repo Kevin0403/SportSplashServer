@@ -64,6 +64,12 @@ public class sportsserviceimpl implements sportsservice{
     }
 
     @Override
+    public BadmintonMatch getBadmintonMatch(int id) {
+        BadmintonMatch badmintonMatch=badMintonMatchdao.findById(id);
+        return badmintonMatch;
+    }
+
+    @Override
     public List<Player> getPlayes() {
         return pd.findAll();
     }

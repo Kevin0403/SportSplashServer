@@ -11,4 +11,5 @@ import java.util.List;
 public interface badMintonMatchdao extends JpaRepository<BadmintonMatch,Integer> {
     @Query("SELECT t FROM BadmintonMatch t WHERE t.tournament.id = :tournamentId")
     List<BadmintonMatch> findBadmintonMatchByTournamentId( int tournamentId);
+    BadmintonMatch findById(int id);
 }

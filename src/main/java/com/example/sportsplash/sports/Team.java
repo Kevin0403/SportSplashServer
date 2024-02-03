@@ -17,13 +17,9 @@ public class Team {
         }
         return tournament;
     }
-
     public void setTournament(Tournament tournament) {
         this.tournament = tournament;
     }
-
-
-
     @Override
     public String toString() {
         return "Team{" +
@@ -32,25 +28,18 @@ public class Team {
                 ", tournament=" + tournament +
                 '}';
     }
-
-
-
     public Team() {
         super();
     }
-
-
     public Team(int id, String name, Tournament tournament) {
         this.id = id;
         this.name = name;
         this.tournament = tournament;
     }
-
-
     public int getId() {
         return id;
-    }
 
+    }
     public void setId(int id) {
         this.id = id;
     }
@@ -62,7 +51,6 @@ public class Team {
     public void setName(String name) {
         this.name = name;
     }
-
     public Team(int id) {
         this.id = id;
     }

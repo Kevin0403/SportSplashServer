@@ -113,6 +113,10 @@ public class mycontroller {
     public Team getteam(@PathVariable int id){
         return this.sportsservice.getteam(id);
     }
+    @GetMapping("/getBadmintonMatch/{id}")
+    public  BadmintonMatch getBadmintonMatch(@PathVariable int id){
+        return this.sportsservice.getBadmintonMatch(id);
+    }
     /*For deleting the user*/
     @DeleteMapping("/signup/{email}")
     public ResponseEntity<HttpStatus> deletesports(@PathVariable String email) {
