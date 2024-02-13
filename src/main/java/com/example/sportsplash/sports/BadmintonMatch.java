@@ -8,8 +8,29 @@ import java.util.List;
 public class BadmintonMatch {
     @Id@GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
-    int team1score;
-    int team2score;
+    int team1score = 0;
+    int team2score = 0;
+
+    public MatchStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(MatchStatus status) {
+        this.status = status;
+    }
+
+    MatchStatus status = MatchStatus.UPCOMING;
+
+    public int getRequiredScore() {
+        return requiredScore;
+    }
+
+    int requiredScore = 21;
+
+    public void setRequiredScore(int requiredScore) {
+        this.requiredScore = requiredScore;
+    }
+
     @ManyToOne
     @JoinColumn(name = "team1_fk",referencedColumnName = "id")
    private Team team1;
@@ -17,7 +38,20 @@ public class BadmintonMatch {
     @ManyToOne
     @JoinColumn(name = "team2_fk",referencedColumnName = "id")
    private Team team2;
+
+    @ManyToOne
+    @JoinColumn(name = "winner_fk",referencedColumnName = "id")
+    private Team winner;
     String startTime;
+
+    public Team getWinner() {
+        return winner;
+    }
+
+    public void setWinner(Team winner) {
+        this.winner = winner;
+    }
+
     String endTime;
 
     String startDate;
