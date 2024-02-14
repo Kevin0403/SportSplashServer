@@ -104,8 +104,8 @@ public class mycontroller {
     }
     /*For creating BadmintonMatch with user */
     @PostMapping("/creatematch")
-    public  BadmintonMatch createBadmintonmatch(@RequestBody BadmintonMatch badmintonMatch){
-        return this.sportsservice.createBadmintonmatch(badmintonMatch);
+    public  BadmintonMatchUser createBadmintonmatch(@RequestBody BadmintonMatchUser badmintonMatchUser){
+        return this.sportsservice.createBadmintonmatch(badmintonMatchUser);
     }
     /*For getting all players in perticular team*/
     @GetMapping("/team/{teamId}")

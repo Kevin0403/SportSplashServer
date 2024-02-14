@@ -11,8 +11,7 @@ public class BadmintonMatch {
     int team1score = 0;
     int team2score = 0;
 
-    @ManyToOne
-    private  User user;
+
 
 
 
@@ -166,34 +165,23 @@ public class BadmintonMatch {
         this.tournament = tournament;
     }
 
-
-
-
-    public BadmintonMatch(int id, int team1score, int team2score, User user, MatchStatus status, int requiredScore, Team team1, Team team2, Team winner, String startTime, String endTime, String startDate, String endDate) {
-        this.id = id;
-        this.team1score = team1score;
-        this.team2score = team2score;
-        this.user = user;
-        this.status = status;
-        this.requiredScore = requiredScore;
-        this.team1 = team1;
-        this.team2 = team2;
-        this.winner = winner;
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.startDate = startDate;
-        this.endDate = endDate;
-
-    }
-
-
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
+    @Override
+    public String  toString() {
+        return "BadmintonMatch{" +
+                "id=" + id +
+                ", team1score=" + team1score +
+                ", team2score=" + team2score +
+                ", status=" + status +
+                ", requiredScore=" + requiredScore +
+                ", team1=" + team1 +
+                ", team2=" + team2 +
+                ", winner=" + winner +
+                ", startTime='" + startTime + '\'' +
+                ", endTime='" + endTime + '\'' +
+                ", startDate='" + startDate + '\'' +
+                ", endDate='" + endDate + '\'' +
+                ", tournament=" + tournament +
+                '}';
     }
 
     public BadmintonMatch(int id) {
