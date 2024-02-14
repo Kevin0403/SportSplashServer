@@ -102,6 +102,11 @@ public class mycontroller {
 
             return this.sportsservice.createBadmintonMatch(badmintonMatch);
     }
+    /*For creating BadmintonMatch with user */
+    @PostMapping("/creatematch")
+    public  BadmintonMatch createBadmintonmatch(@RequestBody BadmintonMatch badmintonMatch){
+        return this.sportsservice.createBadmintonmatch(badmintonMatch);
+    }
     /*For getting all players in perticular team*/
     @GetMapping("/team/{teamId}")
     public ResponseEntity<List<Player>> getPlayersForTeam(@PathVariable int teamId) {

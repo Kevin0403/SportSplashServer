@@ -60,4 +60,6 @@ public interface sportsservice {
     BadmintonMatch updateBadmintonMatch(BadmintonMatch badmintonMatch);
 
     BadmintonMatch getBadmintonMatch(int id);
+
+    BadmintonMatch createBadmintonmatch(BadmintonMatch badmintonMatch);
 }

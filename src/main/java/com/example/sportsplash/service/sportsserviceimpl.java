@@ -69,6 +69,8 @@ public class sportsserviceimpl implements sportsservice{
         return badmintonMatch;
     }
 
+
+
     @Override
     public List<Player> getPlayes() {
         return pd.findAll();
@@ -256,6 +258,9 @@ public class sportsserviceimpl implements sportsservice{
         badMintonMatchdao.save(badmintonMatch);
         return badmintonMatch;
     }
+
+
+
 
     @Override
     public void deletetournament(int id) {
