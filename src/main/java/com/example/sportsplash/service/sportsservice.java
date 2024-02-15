@@ -63,4 +63,6 @@ public interface sportsservice {
 
 
     BadmintonMatchUser createBadmintonmatch(BadmintonMatchUser badmintonMatchUser);
+
+    List<BadmintonMatch> getMatches();
 }

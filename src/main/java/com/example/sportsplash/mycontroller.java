@@ -39,6 +39,10 @@ public class mycontroller {
     public List<Team> getTeam(){
         return this.sportsservice.getTeam();
     }
+    /*For getting all the matches*/
+    @GetMapping("/getMatches")
+    public List<BadmintonMatch> getMatches(){return  this.sportsservice.getMatches();}
+
     /*For getting the list of Players*/
     @GetMapping("/getPlayers")
     public List<Player> getPlayers(){

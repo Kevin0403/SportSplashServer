@@ -259,6 +259,11 @@ public class sportsserviceimpl implements sportsservice{
     }
 
     @Override
+    public List<BadmintonMatch> getMatches() {
+       return badMintonMatchdao.findAll();
+    }
+
+    @Override
     public BadmintonMatch createBadmintonMatch(BadmintonMatch badmintonMatch) {
 
         if (badmintonMatch == null) {
