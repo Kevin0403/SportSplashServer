@@ -159,9 +159,7 @@ public class BadmintonMatch {
     }
 
     public void setTournament(Tournament tournament) {
-        if(tournament==null){
-            this.tournament=null;
-        }
+
         this.tournament = tournament;
     }
 

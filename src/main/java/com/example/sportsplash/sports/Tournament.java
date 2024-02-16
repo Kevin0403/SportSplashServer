@@ -29,7 +29,7 @@ public class Tournament {
 
     int teams;
 
-    boolean isdefault;
+    boolean isdefault=true;
 
     @ManyToOne(fetch = FetchType.EAGER)
    @JoinColumn(name="email_FK",referencedColumnName = "email")

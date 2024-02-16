@@ -10,4 +10,5 @@ public interface sportsdao extends JpaRepository<User,String> {
     @Query("SELECT s from User s where s.email = ?1")
     public User findByEmail( @Param("email") String email);
 
+
 }

@@ -30,6 +30,7 @@ public class sportsserviceimpl implements sportsservice{
 
 
     public sportsserviceimpl() {
+
         super();
     }
 
@@ -102,6 +103,11 @@ public class sportsserviceimpl implements sportsservice{
 
     @Override
     public User createUser(User s) {
+        Tournament tournament=new Tournament();
+        tournament.setTournamentName(null);
+        for (Game game : Game.values()) {
+              tournament.setGame(game);
+        }
        sd.save(s);
        return s;
     }
@@ -230,7 +236,7 @@ public class sportsserviceimpl implements sportsservice{
             throw new IllegalArgumentException("Team1 cannot be null");
 
         }
-        team1=teamdao1.findById(team1.getId());
+        team1 = teamdao1.findById(team1.getId());
         badmintonMatch.setTeam1(team1);
         if (team1 == null) {
             throw new IllegalArgumentException("Team 1 does not exist in the database");
@@ -241,7 +247,7 @@ public class sportsserviceimpl implements sportsservice{
             throw new IllegalArgumentException("Team2 cannot be null");
 
         }
-        team2=teamdao1.findById(team2.getId());
+        team2 = teamdao1.findById(team2.getId());
         badmintonMatch.setTeam2(team2);
         if (team2 == null) {
             throw new IllegalArgumentException("Team 2 does not exist in the database");
@@ -249,17 +255,36 @@ public class sportsserviceimpl implements sportsservice{
 
 
         Tournament tournament = badmintonMatch.getTournament();
-        if (tournament == null) {
-            throw new IllegalArgumentException("Tournament cannot be null");
-        }
-        tournament=td.findById(tournament.getId());
-        badmintonMatch.setTournament(tournament);
+        if(tournament!=null) {
+            if (tournament.isIsdefault()) {
+                String email = tournament.getUser().getEmail();
 
-        if (tournament == null) {
-            throw new IllegalArgumentException("Tournament does not exist in the database");
+                List<Tournament> defaulttournament = td.findAllTournamentsByUserEmail(email);
+
+                if (!defaulttournament.isEmpty()) {
+                    Tournament defaultt = defaulttournament.get(0);
+                    badmintonMatch.setTournament(defaultt);
+                    return badmintonMatch;
+                } else {
+                    throw new IllegalStateException("No default tournament found for the user");
+                }
+
+            } else {
+
+                tournament = td.findById(tournament.getId());
+                badmintonMatch.setTournament(tournament);
+
+                if (tournament == null) {
+                    throw new IllegalArgumentException("Tournament does not exist in the database");
+                }
+
+            }
+        }else {
+            throw new IllegalArgumentException("Tournament cannot be null");
         }
         badMintonMatchdao.save(badmintonMatch);
         return badmintonMatch;
+
     }
     @Override
     public void deletetournament(int id) {
