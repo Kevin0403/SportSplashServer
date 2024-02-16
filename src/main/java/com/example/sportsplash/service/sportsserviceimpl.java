@@ -103,12 +103,16 @@ public class sportsserviceimpl implements sportsservice{
 
     @Override
     public User createUser(User s) {
-        Tournament tournament=new Tournament();
-        tournament.setTournamentName(null);
+        sd.save(s);
+
         for (Game game : Game.values()) {
+            Tournament tournament=new Tournament();
+            tournament.setTournamentName(null);
               tournament.setGame(game);
+              tournament.setUser(s);
+              tournament.setIsdefault(true);
+              td.save(tournament);
         }
-       sd.save(s);
        return s;
     }
 
@@ -183,16 +187,33 @@ public class sportsserviceimpl implements sportsservice{
 
     @Override
     public Team createTeam(Team t) {
-        Tournament tournaments=td.findById(t.getTournament().getId());
-        if(tournaments==null){
-            Tournament tournaments1=new Tournament();
-            tournaments1.setId(t.getTournament().getId());
-            td.save(tournaments1);
-            t.setTournament(tournaments1);
+        Tournament tournament=td.findById(t.getTournament().getId());
+        if(tournament==null){
+            if (t.getTournament().isIsdefault()) {
+                String email = t.getTournament().getUser().getEmail();
+
+                Tournament defaulttournament = td.findAllTournamentsByUserEmail(email, t.getTournament().getGame());
+
+                if (defaulttournament != null) {
+                    t.setTournament(defaulttournament);
+                } else {
+                    throw new IllegalStateException("No default tournament found for the user");
+                }
+
+            } else {
+
+                tournament = td.findById(tournament.getId());
+                t.setTournament(tournament);
+
+                if (tournament == null) {
+                    throw new IllegalArgumentException("Tournament does not exist in the database");
+                }
+
+            }
         }
         else
         {
-            t.setTournament(tournaments);
+            t.setTournament(tournament);
         }
         if(t.getTournament()==null) {
             throw new IllegalArgumentException("null");
@@ -259,11 +280,10 @@ public class sportsserviceimpl implements sportsservice{
             if (tournament.isIsdefault()) {
                 String email = tournament.getUser().getEmail();
 
-                List<Tournament> defaulttournament = td.findAllTournamentsByUserEmail(email);
+                Tournament defaulttournament = td.findAllTournamentsByUserEmail(email, tournament.getGame());
 
-                if (!defaulttournament.isEmpty()) {
-                    Tournament defaultt = defaulttournament.get(0);
-                    badmintonMatch.setTournament(defaultt);
+                if (defaulttournament != null) {
+                    badmintonMatch.setTournament(defaulttournament);
                     return badmintonMatch;
                 } else {
                     throw new IllegalStateException("No default tournament found for the user");
