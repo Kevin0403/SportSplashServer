@@ -284,7 +284,6 @@ public class sportsserviceimpl implements sportsservice{
 
                 if (defaulttournament != null) {
                     badmintonMatch.setTournament(defaulttournament);
-                    return badmintonMatch;
                 } else {
                     throw new IllegalStateException("No default tournament found for the user");
                 }
