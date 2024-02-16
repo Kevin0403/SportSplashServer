@@ -61,8 +61,7 @@ public class mycontroller {
     /*For updating the tournament*/
     @PutMapping("/tournament")
     public Tournament updateTournament(@RequestBody Tournament tournament){
-        return this.sportsservice.updateTournament(tournament);
-    }
+        return this.sportsservice.updateTournament(tournament);}
     /*For updating the team*/
     @PutMapping("/team")
     public Team updateTeam(@RequestBody Team team){
@@ -76,8 +75,7 @@ public class mycontroller {
     /*For updating the BadmintonMatch*/
     @PutMapping("/badmintonMatch")
     public BadmintonMatch updateBadmintonMatch(@RequestBody BadmintonMatch badmintonMatch){
-        return this.sportsservice.updateBadmintonMatch(badmintonMatch);
-    }
+        return this.sportsservice.updateBadmintonMatch(badmintonMatch);}
     /*For verifying the user*/
     @PostMapping("/verifyUser")
     public User verifyUser(@RequestBody User s){
@@ -92,31 +90,22 @@ public class mycontroller {
     @GetMapping("/tournament/{tournamentId}")
     public ResponseEntity<List<Team>> getTeamsForTournament(@PathVariable int tournamentId) {
         List<Team> teams = this.sportsservice.getTeamsForTournament(tournamentId);
-        return ResponseEntity.ok(teams);
-    }
+        return ResponseEntity.ok(teams);}
     /*For getting all the matches in perticular tournament*/
     @GetMapping("/tournamentmatch/{id}")
     public ResponseEntity<List<BadmintonMatch>> getMatchesForTournament(@PathVariable int id){
         List<BadmintonMatch> matches=this.sportsservice.getMatchesForTournament(id);
-        return ResponseEntity.ok(matches);
-    }
+        return ResponseEntity.ok(matches);}
     /* For creating BadmintonMatch */
     @PostMapping("/create")
     public BadmintonMatch createBadmintonMatch(@RequestBody BadmintonMatch badmintonMatch) {
+        return this.sportsservice.createBadmintonMatch(badmintonMatch);}
 
-            return this.sportsservice.createBadmintonMatch(badmintonMatch);
-    }
-    /*For creating BadmintonMatch with user */
-    @PostMapping("/creatematch")
-    public  BadmintonMatchUser createBadmintonmatch(@RequestBody BadmintonMatchUser badmintonMatchUser){
-        return this.sportsservice.createBadmintonmatch(badmintonMatchUser);
-    }
     /*For getting all players in perticular team*/
     @GetMapping("/team/{teamId}")
     public ResponseEntity<List<Player>> getPlayersForTeam(@PathVariable int teamId) {
         List<Player> players = this.sportsservice.getPlayersForTeam(teamId);
-        return ResponseEntity.ok(players);
-    }
+        return ResponseEntity.ok(players);}
     /*For getting the team by id*/
     @GetMapping("/getTeam/{id}")
     public Team getteam(@PathVariable int id){
@@ -183,18 +172,12 @@ public class mycontroller {
     /*For deleting the team with players*/
     @DeleteMapping("/deleteteamplayer/{id}")
     public void deleteTeamPlayers(@PathVariable int id){
-
-
-            this.sportsservice.deleteTeamPlayers(id);
-
-    }
+        this.sportsservice.deleteTeamPlayers(id);}
 
     /*For creating the tournament*/
     @PostMapping("/tournaments")
     public Tournament createTournament(@RequestBody Tournament tournament) {
-
-        return this.sportsservice.createTournament(tournament);
-    }
+        return this.sportsservice.createTournament(tournament);}
     /*For creating the team*/
     @PostMapping("/team")
     public Team createTeam(@RequestBody Team team){

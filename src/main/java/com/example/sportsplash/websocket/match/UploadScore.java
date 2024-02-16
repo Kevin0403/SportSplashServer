@@ -8,7 +8,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import java.util.Date;
 
 @Getter
@@ -53,7 +52,6 @@ public class UploadScore {
         }
 
     }
-
     public void startMatch(BadmintonMatch match){
         match.setStatus(MatchStatus.ONGOING);
         setStatus(MatchStatus.ONGOING);
@@ -62,6 +60,5 @@ public class UploadScore {
         match.setTeam1score(0);
         match.setTeam2score(0);
         match.setStartDate(new Date().toString());
-
     }
 }

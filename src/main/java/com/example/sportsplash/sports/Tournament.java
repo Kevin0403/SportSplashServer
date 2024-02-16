@@ -12,7 +12,6 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class Tournament {
 
     @Id@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -30,15 +29,23 @@ public class Tournament {
 
     int teams;
 
+    boolean isdefault;
+
     @ManyToOne(fetch = FetchType.EAGER)
    @JoinColumn(name="email_FK",referencedColumnName = "email")
      private User user;
 
-
-
-
-
-
+    public Tournament(int id, String tournamentName, Game game, String startDate, String endDate, int teamSize, int teams, boolean isdefault, User user) {
+        this.id = id;
+        this.tournamentName = tournamentName;
+        this.game = game;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.teamSize = teamSize;
+        this.teams = teams;
+        this.isdefault = isdefault;
+        this.user = user;
+    }
 
 
     @Override
@@ -46,11 +53,12 @@ public class Tournament {
         return "Tournament{" +
                 "id=" + id +
                 ", tournamentName='" + tournamentName + '\'' +
-                ", game='" + game + '\'' +
+                ", game=" + game +
                 ", startDate='" + startDate + '\'' +
                 ", endDate='" + endDate + '\'' +
                 ", teamSize=" + teamSize +
                 ", teams=" + teams +
+                ", isdefault=" + isdefault +
                 ", user=" + user +
                 '}';
     }
@@ -58,7 +66,7 @@ public class Tournament {
     public User getUser() {
 
         if (user == null) {
-            user = new User();  // Create a new User object if it's null
+            user = new User();
         }
         return user;
 

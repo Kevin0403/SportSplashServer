@@ -25,9 +25,9 @@ public class sportsserviceimpl implements sportsservice{
       @Autowired
       private playerdao pd;
       @Autowired
-      private badMintonMatchdao badMintonMatchdao;
-      @Autowired
-      private badMintonMatchUser badMintonMatchUser;
+      private badmintonmatchdao badMintonMatchdao;
+
+
 
     public sportsserviceimpl() {
         super();
@@ -214,50 +214,6 @@ public class sportsserviceimpl implements sportsservice{
          pd.save(p);
          return p;
     }
-
-    @Override
-    public BadmintonMatchUser createBadmintonmatch(BadmintonMatchUser badmintonMatchUser) {
-        if (badmintonMatchUser == null) {
-            throw new IllegalArgumentException("BadmintonMatch object cannot be null");
-        }
-        Team team1 = badmintonMatchUser.getTeam1();
-        if (team1 == null) {
-            throw new IllegalArgumentException("Team1 cannot be null");
-
-        }
-        team1=teamdao1.findById(team1.getId());
-        badmintonMatchUser.setTeam1(team1);
-        if (team1 == null) {
-            throw new IllegalArgumentException("Team 1 does not exist in the database");
-
-        }
-        Team team2 = badmintonMatchUser.getTeam2();
-        if (team2 == null) {
-            throw new IllegalArgumentException("Team2 cannot be null");
-
-        }
-        team2=teamdao1.findById(team2.getId());
-        badmintonMatchUser.setTeam2(team2);
-        if (team2 == null) {
-            throw new IllegalArgumentException("Team 2 does not exist in the database");
-        }
-
-
-        User user = badmintonMatchUser.getUser();
-        if (user == null) {
-            throw new IllegalArgumentException("Tournament cannot be null");
-        }
-        user=sd.findByEmail(user.getEmail());
-        badmintonMatchUser.setUser(user);
-
-        if (user == null) {
-            throw new IllegalArgumentException("Tournament does not exist in the database");
-        }
-        badMintonMatchUser.save(badmintonMatchUser);
-        return badmintonMatchUser;
-
-    }
-
     @Override
     public List<BadmintonMatch> getMatches() {
        return badMintonMatchdao.findAll();
@@ -305,10 +261,6 @@ public class sportsserviceimpl implements sportsservice{
         badMintonMatchdao.save(badmintonMatch);
         return badmintonMatch;
     }
-
-
-
-
     @Override
     public void deletetournament(int id) {
         Tournament tournament=td.getReferenceById(id);
