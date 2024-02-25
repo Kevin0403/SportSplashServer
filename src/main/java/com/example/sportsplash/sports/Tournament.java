@@ -9,9 +9,6 @@ import lombok.Setter;
 import java.util.List;
 
 @Entity
-@Getter
-@Setter
-@NoArgsConstructor
 public class Tournament {
 
     @Id@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -47,6 +44,10 @@ public class Tournament {
         this.user = user;
     }
 
+    public Tournament() {
+        super();
+    }
+
 
     @Override
     public String toString() {
@@ -72,6 +73,71 @@ public class Tournament {
 
     }
 
+    public int getId() {
+        return id;
+    }
 
+    public void setId(int id) {
+        this.id = id;
+    }
 
+    public String getTournamentName() {
+        return tournamentName;
+    }
+
+    public void setTournamentName(String tournamentName) {
+        this.tournamentName = tournamentName;
+    }
+
+    public Game getGame() {
+        return game;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
+    }
+
+    public String getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
+
+    public String getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
+    }
+
+    public int getTeamSize() {
+        return teamSize;
+    }
+
+    public void setTeamSize(int teamSize) {
+        this.teamSize = teamSize;
+    }
+
+    public int getTeams() {
+        return teams;
+    }
+
+    public void setTeams(int teams) {
+        this.teams = teams;
+    }
+
+    public boolean isIsdefault() {
+        return isdefault;
+    }
+
+    public void setIsdefault(boolean isdefault) {
+        this.isdefault = isdefault;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }

@@ -64,4 +64,6 @@ public interface sportsservice {
 
 
     List<BadmintonMatch> getMatches();
+
+    KabaddiMatch getKabaddiMatch(int id);
 }

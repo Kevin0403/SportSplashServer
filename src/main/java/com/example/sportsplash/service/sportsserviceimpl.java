@@ -164,7 +164,6 @@ public class sportsserviceimpl implements sportsservice{
     }
 
     @Override
-    @Transactional
     public Tournament createTournament(Tournament t) {
         User existingUser = sd.findByEmail(t.getUser().getEmail());
 
@@ -244,6 +243,11 @@ public class sportsserviceimpl implements sportsservice{
     @Override
     public List<BadmintonMatch> getMatches() {
        return badMintonMatchdao.findAll();
+    }
+
+    @Override
+    public KabaddiMatch getKabaddiMatch(int id) {
+        return null;
     }
 
     @Override
