@@ -27,6 +27,8 @@ public class UploadScore {
     MatchStatus status;
 
 
+
+
     public void updateBadmintonScore(BadmintonMatch match) {
         if(status != MatchStatus.ONGOING){
             setTeam1Score(match.getTeam1score());
@@ -77,10 +79,7 @@ public class UploadScore {
                 match.setTeam1AllOutPoints(match.getTeam1AllOutPoints() + points);
             }
         }
-
-
-
-         else {
+        else {
             if (type.equals("raid")) {
                 match.setTeam1RaidPoints(match.getTeam1RaidPoints() + points);
             } else if (type.equals("tackle")) {
@@ -91,12 +90,9 @@ public class UploadScore {
             } else if (type.equals("extra")) {
                 match.setTeam1AllOutPoints(match.getTeam1AllOutPoints() + points);
             }
-
-
         }
-
         setTeam1Score(match.getTeam1RaidPoints()+match.getTeam1TacklePoints()+match.getTeam1ExtraPoints()+match.getTeam1AllOutPoints());
-         setTeam2Score(match.getTeam2AllOutPoints()+match.getTeam2RaidPoints()+ match.getTeam2ExtraPoints()+match.getTeam2TacklePoints());
+        setTeam2Score(match.getTeam2AllOutPoints()+match.getTeam2RaidPoints()+ match.getTeam2ExtraPoints()+match.getTeam2TacklePoints());
 
         if(team1Score > team2Score){
             winner = match.getTeam1();

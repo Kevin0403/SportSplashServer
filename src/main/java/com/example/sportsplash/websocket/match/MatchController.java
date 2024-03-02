@@ -53,11 +53,6 @@ public class MatchController {
         kabaddimatchdao.save(match);
         return ResponseEntity.ok(score);
     }
-
-
-
-
-
     @MessageMapping("/startMatch/{matchId}")
     @SendTo("/public/scoreUpdates/{matchId}")
     public ResponseEntity<Object> startMatch(

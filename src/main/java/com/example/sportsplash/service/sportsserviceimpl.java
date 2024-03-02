@@ -4,7 +4,6 @@ import com.example.sportsplash.dao.*;
 import com.example.sportsplash.sports.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
@@ -26,6 +25,8 @@ public class sportsserviceimpl implements sportsservice{
       private playerdao pd;
       @Autowired
       private badmintonmatchdao badMintonMatchdao;
+      @Autowired
+      private  kabaddimatchdao kabaddimatchdao;
 
 
 
@@ -247,7 +248,132 @@ public class sportsserviceimpl implements sportsservice{
 
     @Override
     public KabaddiMatch getKabaddiMatch(int id) {
-        return null;
+        KabaddiMatch kabaddiMatch= kabaddimatchdao.findById(id);
+        return kabaddiMatch;
+
+    }
+
+
+    @Override
+    public KabaddiMatch updateKabaddiMatch(KabaddiMatch kabaddiMatch) {
+        if (kabaddiMatch == null) {
+            throw new IllegalArgumentException("BadmintonMatch object cannot be null");
+        }
+        Team team1 = kabaddiMatch.getTeam1();
+        if (team1 == null) {
+            throw new IllegalArgumentException("Team1 cannot be null");
+
+        }
+        team1=teamdao1.findById(team1.getId());
+        kabaddiMatch.setTeam1(team1);
+        if (team1 == null) {
+            throw new IllegalArgumentException("Team 1 does not exist in the database");
+
+        }
+        Team team2 = kabaddiMatch.getTeam2();
+        if (team2 == null) {
+            throw new IllegalArgumentException("Team2 cannot be null");
+
+        }
+        team2=teamdao1.findById(team2.getId());
+        kabaddiMatch.setTeam2(team2);
+        if (team2 == null) {
+            throw new IllegalArgumentException("Team 2 does not exist in the database");
+        }
+
+
+        Tournament tournament =kabaddiMatch.getTournament();
+        if (tournament == null) {
+            throw new IllegalArgumentException("Tournament cannot be null");
+        }
+        tournament=td.findById(tournament.getId());
+        kabaddiMatch.setTournament(tournament);
+
+        if (tournament == null) {
+            throw new IllegalArgumentException("Tournament does not exist in the database");
+        }
+      kabaddimatchdao.save(kabaddiMatch);
+        return kabaddiMatch;
+
+    }
+
+    @Override
+    public List<BadmintonMatch> getKabaddiMatchesForTournament(int id) {
+        return kabaddimatchdao.findKabaddiMatchByTournamentId(id);
+    }
+
+    @Override
+    public void deleteKabaddiMatch(int id) {
+
+        KabaddiMatch kabaddiMatch=kabaddimatchdao.getReferenceById(id);
+        kabaddiMatch.setTeam1(null);
+        kabaddiMatch.setTeam2(null);
+        kabaddiMatch.setTournament(null);
+        kabaddimatchdao.delete(kabaddiMatch);
+    }
+
+    @Override
+    public KabaddiMatch createKabaddiMatch(KabaddiMatch kabaddiMatch) {
+        if (kabaddiMatch == null) {
+            throw new IllegalArgumentException("BadmintonMatch object cannot be null");
+        }
+        Team team1 = kabaddiMatch.getTeam1();
+        if (team1 == null) {
+            throw new IllegalArgumentException("Team1 cannot be null");
+
+        }
+        team1 = teamdao1.findById(team1.getId());
+        kabaddiMatch.setTeam1(team1);
+        if (team1 == null) {
+            throw new IllegalArgumentException("Team 1 does not exist in the database");
+
+        }
+        Team team2 = kabaddiMatch.getTeam2();
+        if (team2 == null) {
+            throw new IllegalArgumentException("Team2 cannot be null");
+
+        }
+        team2 = teamdao1.findById(team2.getId());
+        kabaddiMatch.setTeam2(team2);
+        if (team2 == null) {
+            throw new IllegalArgumentException("Team 2 does not exist in the database");
+        }
+
+
+        Tournament tournament = kabaddiMatch.getTournament();
+        if(tournament!=null) {
+            if (tournament.isIsdefault()) {
+                String email = tournament.getUser().getEmail();
+
+                Tournament defaulttournament = td.findAllTournamentsByUserEmail(email, tournament.getGame());
+
+                if (defaulttournament != null) {
+                    kabaddiMatch.setTournament(defaulttournament);
+                } else {
+                    throw new IllegalStateException("No default tournament found for the user");
+                }
+
+            } else {
+
+                tournament = td.findById(tournament.getId());
+           kabaddiMatch.setTournament(tournament);
+
+                if (tournament == null) {
+                    throw new IllegalArgumentException("Tournament does not exist in the database");
+                }
+
+            }
+        }else {
+            throw new IllegalArgumentException("Tournament cannot be null");
+        }
+        kabaddimatchdao.save(kabaddiMatch);
+        return kabaddiMatch;
+
+    }
+
+    @Override
+    public List<KabaddiMatch> getKMatches() {
+        return kabaddimatchdao.findAll();
     }
 
     @Override
