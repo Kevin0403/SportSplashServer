@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -576,6 +577,13 @@ public class sportsserviceimpl implements sportsservice{
         badMintonMatchdao.save(badmintonMatch);
         return badmintonMatch;
 
+    }
+
+    public List<Object> getAlltheMatches() {
+        List<Object> allMatches = new ArrayList<>();
+        allMatches.addAll(badMintonMatchdao.findAll());
+        allMatches.addAll(kabaddimatchdao.findAll());
+        return allMatches;
     }
 }
 

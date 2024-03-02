@@ -78,4 +78,8 @@ public interface sportsservice {
     KabaddiMatch createKabaddiMatch(KabaddiMatch kabaddiMatch);
 
     List<KabaddiMatch> getKMatches();
+
+    List<Object> getAlltheMatches();
+
+
 }

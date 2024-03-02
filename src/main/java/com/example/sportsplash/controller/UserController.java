@@ -46,4 +46,9 @@ public class UserController {
         }
     }
 
+    @GetMapping("/getall")
+    public List<Object> getAlltheMatches(){
+        return this.sportsservice.getAlltheMatches();
+    }
+
 }

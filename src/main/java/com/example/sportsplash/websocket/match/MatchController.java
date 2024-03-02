@@ -4,6 +4,7 @@ import com.example.sportsplash.dao.badmintonmatchdao;
 import com.example.sportsplash.dao.kabaddimatchdao;
 import com.example.sportsplash.service.sportsservice;
 import com.example.sportsplash.sports.BadmintonMatch;
+import com.example.sportsplash.sports.Game;
 import com.example.sportsplash.sports.KabaddiMatch;
 import com.example.sportsplash.sports.MatchStatus;
 import lombok.extern.slf4j.Slf4j;
@@ -57,13 +58,20 @@ public class MatchController {
     @SendTo("/public/scoreUpdates/{matchId}")
     public ResponseEntity<Object> startMatch(
             @DestinationVariable("matchId") int matchId,
-            @Payload UploadScore score){
-        if(score.status == MatchStatus.ONGOING){
-            BadmintonMatch match = service.getBadmintonMatch(matchId);
-            score.startMatch(match);
-            badMintonMatchdao.save(match);
+            @Payload UploadScore score) {
+
+        BadmintonMatch badmintonMatch = service.getBadmintonMatch(matchId);
+        KabaddiMatch kabaddiMatch = service.getKabaddiMatch(matchId);
+
+        if (badmintonMatch != null && score.getStatus() == MatchStatus.ONGOING) {
+            score.startMatch(Game.BADMINTON);
+            badMintonMatchdao.save(badmintonMatch);
+        } else if (kabaddiMatch != null && score.getStatus() == MatchStatus.ONGOING) {
+            score.startMatch(Game.KABADDI);  // Use Game.KABADDI for Kabaddi matches
+            kabaddimatchdao.save(kabaddiMatch);
         }
 
         return ResponseEntity.ok(score);
     }
+
 }
