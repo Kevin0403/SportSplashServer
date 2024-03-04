@@ -35,8 +35,8 @@ public class KabaddiMatchController {
 
     /*For getting all the matches in perticular tournament*/
     @GetMapping("/tournamentkabaddimatch/{id}")
-    public ResponseEntity<List<BadmintonMatch>> getKabaddiMatchesForTournament(@PathVariable int id){
-        List<BadmintonMatch> matches=this.sportsservice.getMatchesForTournament(id);
+    public ResponseEntity<List<KabaddiMatch>> getKabaddiMatchesForTournament(@PathVariable int id){
+        List<KabaddiMatch> matches=this.sportsservice.getKabaddiMatchesForTournament(id);
         return ResponseEntity.ok(matches);
     }
 

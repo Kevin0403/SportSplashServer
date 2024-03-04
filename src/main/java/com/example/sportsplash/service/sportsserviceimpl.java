@@ -299,7 +299,7 @@ public class sportsserviceimpl implements sportsservice{
     }
 
     @Override
-    public List<BadmintonMatch> getKabaddiMatchesForTournament(int id) {
+    public List<KabaddiMatch> getKabaddiMatchesForTournament(int id) {
         return kabaddimatchdao.findKabaddiMatchByTournamentId(id);
     }
 

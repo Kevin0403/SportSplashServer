@@ -71,7 +71,7 @@ public interface sportsservice {
 
     KabaddiMatch updateKabaddiMatch(KabaddiMatch kabaddiMatch);
 
-    List<BadmintonMatch> getKabaddiMatchesForTournament(int id);
+    List<KabaddiMatch> getKabaddiMatchesForTournament(int id);
 
     void deleteKabaddiMatch(int id);
 
