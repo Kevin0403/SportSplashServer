@@ -41,7 +41,7 @@ public class sportsserviceimpl implements sportsservice{
         String email = s.getEmail();
         User s1 = sd.findByEmail(email);
 
-        if (s1.getPassword().equals(s.getPassword())) {
+        if ( s1!=null &&s1.getPassword().equals(s.getPassword())) {
             return s1;
 
         } else
