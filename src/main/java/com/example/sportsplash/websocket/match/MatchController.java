@@ -9,7 +9,6 @@ import com.example.sportsplash.sports.KabaddiMatch;
 import com.example.sportsplash.sports.MatchStatus;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -18,6 +17,7 @@ import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 @Slf4j
@@ -36,7 +36,7 @@ public class MatchController {
     @SendTo("/public/scoreUpdates/{matchId}")
     public ResponseEntity<Object> updateBadmintonScore(
             @DestinationVariable("matchId") int matchId,
-            @Payload UploadScore score){
+            @Payload UploadBadmintonScore score){
         BadmintonMatch match = service.getBadmintonMatch(matchId);
         score.updateBadmintonScore(match);
         badMintonMatchdao.save(match);
@@ -48,30 +48,46 @@ public class MatchController {
             @PathVariable("matchId") int matchId,
             @PathVariable("matchPoint") int points,
             @PathVariable("pointType") String type,
-            @Payload UploadScore score){
+            @Payload UploadKabaddiScore score){
         KabaddiMatch match = service.getKabaddiMatch(matchId);
         score.updateKabaddiScore(match, points, type);
         kabaddimatchdao.save(match);
         return ResponseEntity.ok(score);
     }
-    @MessageMapping("/startMatch/{matchId}")
+    @MessageMapping("/startBadmintonMatch/{matchId}")
     @SendTo("/public/scoreUpdates/{matchId}")
-    public ResponseEntity<Object> startMatch(
-            @DestinationVariable("matchId") int matchId,
-            @Payload UploadScore score) {
+    public ResponseEntity<BadmintonMatch> startBadmintonMatch(
+            @PathVariable("matchId") int matchId,
+            @RequestBody UploadBadmintonScore score) {
 
         BadmintonMatch badmintonMatch = service.getBadmintonMatch(matchId);
-        KabaddiMatch kabaddiMatch = service.getKabaddiMatch(matchId);
 
         if (badmintonMatch != null && score.getStatus() == MatchStatus.ONGOING) {
-            score.startMatch(Game.BADMINTON);
+            score.startBadmintonMatch(badmintonMatch);
             badMintonMatchdao.save(badmintonMatch);
-        } else if (kabaddiMatch != null && score.getStatus() == MatchStatus.ONGOING) {
-            score.startMatch(Game.KABADDI);  // Use Game.KABADDI for Kabaddi matches
-            kabaddimatchdao.save(kabaddiMatch);
+            return ResponseEntity.ok(badmintonMatch);
+        } else {
+            throw new IllegalArgumentException("Match is not started.");
         }
-
-        return ResponseEntity.ok(score);
     }
+
+    @MessageMapping("/startKabaddiMatch/{matchId}")
+    @SendTo("/public/scoreUpdates/{matchId}")
+    public ResponseEntity<KabaddiMatch> startKabaddiMatch(
+            @PathVariable("matchId") int matchId,
+            @RequestBody UploadKabaddiScore score) {
+
+        KabaddiMatch kabaddiMatch = service.getKabaddiMatch(matchId);
+
+        if (kabaddiMatch != null && score.getStatus() == MatchStatus.ONGOING) {
+            score.startKabaddiMatch(kabaddiMatch);
+           kabaddimatchdao.save(kabaddiMatch);
+            return ResponseEntity.ok(kabaddiMatch);
+        } else {
+            throw new IllegalArgumentException("Match is not started.");
+        }
+    }
+
+
 
 }
