@@ -9,20 +9,18 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-
 import java.util.Date;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@EnableAutoConfiguration
 public class UploadKabaddiScore {
 
     int updateTeam;
     int team1Score;
     int team2Score;
-    int  raidPoints1;
+    int raidPoints1;
     int raidPoints2;
     int tacklePoints1;
     int tacklePoints2;

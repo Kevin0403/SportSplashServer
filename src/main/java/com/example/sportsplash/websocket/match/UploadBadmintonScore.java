@@ -15,7 +15,6 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@EnableAutoConfiguration
 public class UploadBadmintonScore {
     int updateTeam;
     int team1Score=0;

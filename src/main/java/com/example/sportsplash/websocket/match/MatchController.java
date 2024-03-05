@@ -9,6 +9,7 @@ import com.example.sportsplash.sports.KabaddiMatch;
 import com.example.sportsplash.sports.MatchStatus;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -26,7 +27,6 @@ public class MatchController {
 
     @Autowired
     private sportsservice service;
-
     @Autowired
     private badmintonmatchdao badMintonMatchdao;
     @Autowired
@@ -36,7 +36,7 @@ public class MatchController {
     @SendTo("/public/scoreUpdates/{matchId}")
     public ResponseEntity<Object> updateBadmintonScore(
             @DestinationVariable("matchId") int matchId,
-            @Payload UploadBadmintonScore score){
+            @RequestBody UploadBadmintonScore score){
         BadmintonMatch match = service.getBadmintonMatch(matchId);
         score.updateBadmintonScore(match);
         badMintonMatchdao.save(match);
@@ -46,7 +46,7 @@ public class MatchController {
     @SendTo("/public/scoreUpdates/{matchId}")
     public ResponseEntity<Object> updateKabaddiScore(
             @PathVariable("matchId") int matchId,
-            @Payload UploadKabaddiScore score){
+            @RequestBody UploadKabaddiScore score){
         KabaddiMatch match = service.getKabaddiMatch(matchId);
         score.updateKabaddiScore(match);
         kabaddimatchdao.save(match);
