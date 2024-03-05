@@ -2,6 +2,7 @@ package com.example.sportsplash.websocket.match;
 
 import com.example.sportsplash.sports.KabaddiMatch;
 import com.example.sportsplash.sports.MatchStatus;
+import com.example.sportsplash.sports.PointType;
 import com.example.sportsplash.sports.Team;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -31,10 +32,13 @@ public class UploadKabaddiScore {
     int alloutPoints2;
     Team winner;
     MatchStatus status;
+    int points=0;
+    PointType type;
 
 
 
-    public void updateKabaddiScore(KabaddiMatch match, int points, String type) {
+
+    public void updateKabaddiScore(KabaddiMatch match) {
         if (status != MatchStatus.ONGOING) {
             setTeam1Score(match.getTeam1score());
             setTeam2Score(match.getTeam2score());
@@ -51,26 +55,30 @@ public class UploadKabaddiScore {
         }
 
         if (updateTeam == 1) {
-            if (type.equals("raid")) {
+            if (type==PointType.RAID) {
                 match.setTeam1RaidPoints(match.getTeam1RaidPoints() + points);
-            } else if (type.equals("tackle")) {
+            } else if (type==PointType.TACKLE) {
                 match.setTeam1TacklePoints(match.getTeam1TacklePoints() + points);
 
-            } else if (type.equals("allout")) {
+            } else if (type==PointType.ALLOUT) {
                 match.setTeam1AllOutPoints(match.getTeam1AllOutPoints() + points);
-            } else if (type.equals("extra")) {
-                match.setTeam1AllOutPoints(match.getTeam1AllOutPoints() + points);
+            } else if (type==PointType.EXTRA) {
+                match.setTeam1ExtraPoints(match.getTeam1ExtraPoints() + points);
             }
         } else {
-            if (type.equals("raid")) {
-                match.setTeam1RaidPoints(match.getTeam1RaidPoints() + points);
-            } else if (type.equals("tackle")) {
-                match.setTeam1TacklePoints(match.getTeam1TacklePoints() + points);
+            if(type==PointType.RAID){
+                match.setTeam2RaidPoints(match.getTeam2RaidPoints() + points);
+            }
+            else if(type==PointType.TACKLE){
+                match.setTeam2TacklePoints(match.getTeam2TacklePoints()+ points);
 
-            } else if (type.equals("allout")) {
-                match.setTeam1AllOutPoints(match.getTeam1AllOutPoints() + points);
-            } else if (type.equals("extra")) {
-                match.setTeam1AllOutPoints(match.getTeam1AllOutPoints() + points);
+            }
+            else if(type==PointType.ALLOUT){
+                match.setTeam2AllOutPoints(match.getTeam2AllOutPoints()+ points);
+            }
+            else if (type==PointType.EXTRA) {
+                match.setTeam2ExtraPoints(match.getTeam2ExtraPoints() + points);
+
             }
         }
         setTeam1Score(match.getTeam1RaidPoints() + match.getTeam1TacklePoints() + match.getTeam1ExtraPoints() + match.getTeam1AllOutPoints());

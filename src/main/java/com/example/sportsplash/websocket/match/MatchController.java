@@ -46,11 +46,9 @@ public class MatchController {
     @SendTo("/public/scoreUpdates/{matchId}")
     public ResponseEntity<Object> updateKabaddiScore(
             @PathVariable("matchId") int matchId,
-            @PathVariable("matchPoint") int points,
-            @PathVariable("pointType") String type,
             @Payload UploadKabaddiScore score){
         KabaddiMatch match = service.getKabaddiMatch(matchId);
-        score.updateKabaddiScore(match, points, type);
+        score.updateKabaddiScore(match);
         kabaddimatchdao.save(match);
         return ResponseEntity.ok(score);
     }
