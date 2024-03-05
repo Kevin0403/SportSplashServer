@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 @Slf4j
-@CrossOrigin("*-")
+@CrossOrigin("*")
 public class MatchController {
 
     @Autowired
