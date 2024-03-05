@@ -42,7 +42,7 @@ public class MatchController {
         badMintonMatchdao.save(match);
         return ResponseEntity.ok(score);
     }
-    @MessageMapping("/updateKabaddiScore/{matchId}/{matchPoint}/{pointType}")
+    @MessageMapping("/updateKabaddiScore/{matchId}")
     @SendTo("/public/scoreUpdates/{matchId}")
     public ResponseEntity<Object> updateKabaddiScore(
             @PathVariable("matchId") int matchId,

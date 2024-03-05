@@ -24,7 +24,7 @@ public class BadmintonMatchController {
     public BadmintonMatch updateBadmintonMatch(@RequestBody BadmintonMatch badmintonMatch){
         return this.sportsservice.updateBadmintonMatch(badmintonMatch);}
     /*For getting all the matches in perticular tournament*/
-    @GetMapping("/tournamentmatch/{id}")
+    @GetMapping("/tournamentmatch/BADMINTON/{id}")
     public ResponseEntity<List<BadmintonMatch>> getMatchesForTournament(@PathVariable int id){
         List<BadmintonMatch> matches=this.sportsservice.getMatchesForTournament(id);
         return ResponseEntity.ok(matches);}

@@ -26,7 +26,8 @@ public class KabaddiMatchController {
     /*For getting all the matches*/
     @GetMapping("/getKMatches")
     public List<KabaddiMatch> getMatches(){
-        return  this.sportsservice.getKMatches();}
+        return  this.sportsservice.getKMatches();
+    }
 
     /*For updating the BadmintonMatch*/
     @PutMapping("/updateKabaddiMatch")
@@ -34,7 +35,7 @@ public class KabaddiMatchController {
         return this.sportsservice.updateKabaddiMatch(kabaddiMatch);}
 
     /*For getting all the matches in perticular tournament*/
-    @GetMapping("/tournamentkabaddimatch/{id}")
+    @GetMapping("/tournamentmatch/KABADDI/{id}")
     public ResponseEntity<List<KabaddiMatch>> getKabaddiMatchesForTournament(@PathVariable int id){
         List<KabaddiMatch> matches=this.sportsservice.getKabaddiMatchesForTournament(id);
         return ResponseEntity.ok(matches);
