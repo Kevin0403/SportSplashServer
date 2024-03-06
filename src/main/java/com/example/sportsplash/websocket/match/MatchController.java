@@ -91,6 +91,7 @@ public class MatchController {
     }
 
     @MessageMapping("/endKabaddiMatch/{matchId}")
+
     @SendTo("/public/kabaddiScoreUpdates/{matchId}")
     public ResponseEntity endKabaddiMatch(@DestinationVariable("matchId") int matchId,
                                                         @RequestBody UploadKabaddiScore score){
