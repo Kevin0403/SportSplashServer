@@ -33,12 +33,15 @@ public class KabaddiMatch {
     int team1TacklePoints;
     int team2TacklePoints;
 
-    int team1ExtraPoints;
+    int team1BonusPoints;
 
-    int team2ExtraPoints;
+    int team2BonusPoints;
 
     int team1AllOutPoints;
     int team2AllOutPoints;
+
+    int team1TechnicalPoints;
+    int team2TechnicalPoints;
 
     public int getTeam1RaidPoints() {
         return team1RaidPoints;
@@ -72,21 +75,7 @@ public class KabaddiMatch {
         this.team2TacklePoints = team2TacklePoints;
     }
 
-    public int getTeam1ExtraPoints() {
-        return team1ExtraPoints;
-    }
 
-    public void setTeam1ExtraPoints(int team1ExtraPoints) {
-        this.team1ExtraPoints = team1ExtraPoints;
-    }
-
-    public int getTeam2ExtraPoints() {
-        return team2ExtraPoints;
-    }
-
-    public void setTeam2ExtraPoints(int team2ExtraPoints) {
-        this.team2ExtraPoints = team2ExtraPoints;
-    }
 
     public int getTeam1AllOutPoints() {
         return team1AllOutPoints;
@@ -208,7 +197,39 @@ public class KabaddiMatch {
         this.id = id;
     }
 
-    public KabaddiMatch(int id, int team1score, int team2score, Team team1, Team team2, Team winner, String startTime, String endTime, String matchDate, Tournament tournament, MatchStatus status, int team1RaidPoints, int team2RaidPoints, int team1TacklePoints, int team2TacklePoints, int team1ExtraPoints, int team2ExtraPoints, int team1AllOutPoints, int team2AllOutPoints) {
+    public int getTeam1BonusPoints() {
+        return team1BonusPoints;
+    }
+
+    public void setTeam1BonusPoints(int team1BonusPoints) {
+        this.team1BonusPoints = team1BonusPoints;
+    }
+
+    public int getTeam2BonusPoints() {
+        return team2BonusPoints;
+    }
+
+    public void setTeam2BonusPoints(int team2BonusPoints) {
+        this.team2BonusPoints = team2BonusPoints;
+    }
+
+    public int getTeam1TechnicalPoints() {
+        return team1TechnicalPoints;
+    }
+
+    public void setTeam1TechnicalPoints(int team1TechnicalPoints) {
+        this.team1TechnicalPoints = team1TechnicalPoints;
+    }
+
+    public int getTeam2TechnicalPoints() {
+        return team2TechnicalPoints;
+    }
+
+    public void setTeam2TechnicalPoints(int team2TechnicalPoints) {
+        this.team2TechnicalPoints = team2TechnicalPoints;
+    }
+
+    public KabaddiMatch(int id, int team1score, int team2score, Team team1, Team team2, Team winner, String startTime, String endTime, String matchDate, Tournament tournament, MatchStatus status, boolean tie, int team1RaidPoints, int team2RaidPoints, int team1TacklePoints, int team2TacklePoints, int team1BonusPoints, int team2BonusPoints, int team1AllOutPoints, int team2AllOutPoints, int team1TechnicalPoints, int team2TechnicalPoints) {
         this.id = id;
         this.team1score = team1score;
         this.team2score = team2score;
@@ -220,14 +241,17 @@ public class KabaddiMatch {
         this.matchDate = matchDate;
         this.tournament = tournament;
         this.status = status;
+        this.tie = tie;
         this.team1RaidPoints = team1RaidPoints;
         this.team2RaidPoints = team2RaidPoints;
         this.team1TacklePoints = team1TacklePoints;
         this.team2TacklePoints = team2TacklePoints;
-        this.team1ExtraPoints = team1ExtraPoints;
-        this.team2ExtraPoints = team2ExtraPoints;
+        this.team1BonusPoints = team1BonusPoints;
+        this.team2BonusPoints = team2BonusPoints;
         this.team1AllOutPoints = team1AllOutPoints;
         this.team2AllOutPoints = team2AllOutPoints;
+        this.team1TechnicalPoints = team1TechnicalPoints;
+        this.team2TechnicalPoints = team2TechnicalPoints;
     }
 
     @Override
@@ -249,10 +273,12 @@ public class KabaddiMatch {
                 ", team2RaidPoints=" + team2RaidPoints +
                 ", team1TacklePoints=" + team1TacklePoints +
                 ", team2TacklePoints=" + team2TacklePoints +
-                ", team1ExtraPoints=" + team1ExtraPoints +
-                ", team2ExtraPoints=" + team2ExtraPoints +
+                ", team1BonusPoints=" + team1BonusPoints +
+                ", team2BonusPoints=" + team2BonusPoints +
                 ", team1AllOutPoints=" + team1AllOutPoints +
                 ", team2AllOutPoints=" + team2AllOutPoints +
+                ", team1TechnicalPoints=" + team1TechnicalPoints +
+                ", team2TechnicalPoints=" + team2TechnicalPoints +
                 '}';
     }
 }

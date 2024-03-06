@@ -45,7 +45,7 @@ public class MatchController {
     @MessageMapping("/updateKabaddiScore/{matchId}")
     @SendTo("/public/scoreUpdates/{matchId}")
     public ResponseEntity<Object> updateKabaddiScore(
-            @PathVariable("matchId") int matchId,
+            @DestinationVariable("matchId") int matchId,
             @RequestBody UploadKabaddiScore score){
         KabaddiMatch match = service.getKabaddiMatch(matchId);
         score.updateKabaddiScore(match);
@@ -55,7 +55,7 @@ public class MatchController {
     @MessageMapping("/startBadmintonMatch/{matchId}")
     @SendTo("/public/scoreUpdates/{matchId}")
     public ResponseEntity<BadmintonMatch> startBadmintonMatch(
-            @PathVariable("matchId") int matchId,
+            @DestinationVariable("matchId") int matchId,
             @RequestBody UploadBadmintonScore score) {
 
         BadmintonMatch badmintonMatch = service.getBadmintonMatch(matchId);
@@ -72,7 +72,7 @@ public class MatchController {
     @MessageMapping("/startKabaddiMatch/{matchId}")
     @SendTo("/public/scoreUpdates/{matchId}")
     public ResponseEntity<KabaddiMatch> startKabaddiMatch(
-            @PathVariable("matchId") int matchId,
+            @DestinationVariable("matchId") int matchId,
             @RequestBody UploadKabaddiScore score) {
 
         KabaddiMatch kabaddiMatch = service.getKabaddiMatch(matchId);
@@ -85,6 +85,8 @@ public class MatchController {
             throw new IllegalArgumentException("Match is not started.");
         }
     }
+
+
 
 
 
