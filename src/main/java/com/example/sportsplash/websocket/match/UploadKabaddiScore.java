@@ -131,6 +131,10 @@ public class UploadKabaddiScore {
         setBonusPoints1(0);
         kabaddiMatch.setTeam2BonusPoints(0);
         setBonusPoints2(0);
+        kabaddiMatch.setTeam2TechnicalPoints(0);
+        setTacklePoints2(0);
+        kabaddiMatch.setTeam1TechnicalPoints(0);
+        setTacklePoints1(0);
         kabaddiMatch.setMatchDate(new Date().toString());
     }
 
@@ -146,6 +150,16 @@ public class UploadKabaddiScore {
         setBonusPoints2(match.getTeam2BonusPoints());
         setAlloutPoints1(match.getTeam1AllOutPoints());
         setAlloutPoints2(match.getTeam2AllOutPoints());
-        setWinner(match.getWinner());
+        if(team1Score > team2Score){
+            match.setWinner(match.getTeam1());
+            setWinner(match.getWinner());
+        }
+        else {
+            match.setWinner(match.getTeam2());
+            setWinner(match.getTeam2());
+        }
+        match.setStatus(MatchStatus.COMPLETED);
+        setStatus(MatchStatus.COMPLETED);
+
     }
 }
