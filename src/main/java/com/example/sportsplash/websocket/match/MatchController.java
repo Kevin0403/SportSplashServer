@@ -88,13 +88,13 @@ public class MatchController {
 
     @MessageMapping("/endKabaddiMatch/{matchId}")
     @SendTo("/public/scoreUpdates/{matchId}")
-    public ResponseEntity<KabaddiMatch> endKabaddiMatch(@DestinationVariable("matchId") int matchId,
+    public ResponseEntity<UploadKabaddiScore> endKabaddiMatch(@DestinationVariable("matchId") int matchId,
                                                         @RequestBody UploadKabaddiScore score){
         KabaddiMatch kabaddiMatch = service.getKabaddiMatch(matchId);
         if(kabaddiMatch!=null && score.getStatus()==MatchStatus.COMPLETED){
             score.endKabaddiMatch(kabaddiMatch);
             kabaddimatchdao.save(kabaddiMatch);
-            return ResponseEntity.ok(kabaddiMatch);
+            return ResponseEntity.ok(score);
         }
         else{
             throw  new IllegalArgumentException("Not completed.");
