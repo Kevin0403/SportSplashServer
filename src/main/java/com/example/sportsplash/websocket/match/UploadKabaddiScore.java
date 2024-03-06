@@ -103,23 +103,23 @@ public class UploadKabaddiScore {
         }
         setTeam1Score(match.getTeam1score());
         setTeam2Score(match.getTeam2score());
-        if (team1Score > team2Score) {
-             winner= match.getTeam1();
-            match.setStatus(MatchStatus.COMPLETED);
-            setStatus(MatchStatus.COMPLETED);
-            match.setWinner(match.getTeam1());
-        } else if (team1Score < team2Score) {
-            winner = match.getTeam2();
-            match.setStatus(MatchStatus.COMPLETED);
-            setStatus(MatchStatus.COMPLETED);
-            match.setWinner(match.getTeam2());
-        } else {
-            winner = null;
-            match.setTie(true);
-            match.setStatus(MatchStatus.COMPLETED);
-            setStatus(MatchStatus.COMPLETED);
-            match.setWinner(null);
-        }
+//        if (team1Score > team2Score) {
+//             winner= match.getTeam1();
+//            match.setStatus(MatchStatus.COMPLETED);
+//            setStatus(MatchStatus.COMPLETED);
+//            match.setWinner(match.getTeam1());
+//        } else if (team1Score < team2Score) {
+//            winner = match.getTeam2();
+//            match.setStatus(MatchStatus.COMPLETED);
+//            setStatus(MatchStatus.COMPLETED);
+//            match.setWinner(match.getTeam2());
+//        } else {
+//            winner = null;
+//            match.setTie(true);
+//            match.setStatus(MatchStatus.COMPLETED);
+//            setStatus(MatchStatus.COMPLETED);
+//            match.setWinner(null);
+//        }
     }
 
     public void startKabaddiMatch(KabaddiMatch kabaddiMatch) {

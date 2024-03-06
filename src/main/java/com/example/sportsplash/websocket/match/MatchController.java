@@ -33,7 +33,7 @@ public class MatchController {
     private kabaddimatchdao kabaddimatchdao;
 
     @MessageMapping("/updateBadmintonScore/{matchId}")
-    @SendTo("/public/scoreUpdates/{matchId}")
+    @SendTo("/public/badmintonScoreUpdates/{matchId}")
     public ResponseEntity<Object> updateBadmintonScore(
             @DestinationVariable("matchId") int matchId,
             @RequestBody UploadBadmintonScore score){
@@ -43,17 +43,20 @@ public class MatchController {
         return ResponseEntity.ok(score);
     }
     @MessageMapping("/updateKabaddiScore/{matchId}")
-    @SendTo("/public/scoreUpdates/{matchId}")
+    @SendTo("/public/kabaddiScoreUpdates/{matchId}")
     public ResponseEntity<Object> updateKabaddiScore(
             @DestinationVariable("matchId") int matchId,
             @RequestBody UploadKabaddiScore score){
+//        log.info("ERFdgfgddfgfdg");
+//        System.out.println("!wweewrdewrrwrewrewrewrewr");
         KabaddiMatch match = service.getKabaddiMatch(matchId);
         score.updateKabaddiScore(match);
         kabaddimatchdao.save(match);
+//        System.out.println("fgvbvbbbcbcvbbcvbcvcbvcb");
         return ResponseEntity.ok(score);
     }
     @MessageMapping("/startBadmintonMatch/{matchId}")
-    @SendTo("/public/scoreUpdates/{matchId}")
+    @SendTo("/public/badmintonScoreUpdates/{matchId}")
     public ResponseEntity<BadmintonMatch> startBadmintonMatch(
             @DestinationVariable("matchId") int matchId,
             @RequestBody UploadBadmintonScore score) {
@@ -70,7 +73,7 @@ public class MatchController {
     }
 
     @MessageMapping("/startKabaddiMatch/{matchId}")
-    @SendTo("/public/scoreUpdates/{matchId}")
+    @SendTo("/public/kabaddiScoreUpdates/{matchId}")
     public ResponseEntity<KabaddiMatch> startKabaddiMatch(
             @DestinationVariable("matchId") int matchId,
             @RequestBody UploadKabaddiScore score) {
@@ -78,6 +81,7 @@ public class MatchController {
         KabaddiMatch kabaddiMatch = service.getKabaddiMatch(matchId);
 
         if (kabaddiMatch != null && score.getStatus() == MatchStatus.ONGOING) {
+//            log.info("dfggfdgd");
             score.startKabaddiMatch(kabaddiMatch);
            kabaddimatchdao.save(kabaddiMatch);
             return ResponseEntity.ok(kabaddiMatch);
