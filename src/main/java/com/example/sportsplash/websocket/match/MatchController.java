@@ -33,7 +33,7 @@ public class MatchController {
     private kabaddimatchdao kabaddimatchdao;
 
     @MessageMapping("/updateBadmintonScore/{matchId}")
-    @SendTo("/public/scoreUpdates/{matchId}")
+    @SendTo("/public/badmintonScoreUpdates/{matchId}")
     public ResponseEntity<Object> updateBadmintonScore(
             @DestinationVariable("matchId") int matchId,
             @RequestBody UploadBadmintonScore score){
@@ -43,18 +43,21 @@ public class MatchController {
         return ResponseEntity.ok(score);
     }
     @MessageMapping("/updateKabaddiScore/{matchId}")
-    @SendTo("/public/scoreUpdates/{matchId}")
+    @SendTo("/public/kabaddiScoreUpdates/{matchId}")
     public ResponseEntity<Object> updateKabaddiScore(
             @DestinationVariable("matchId") int matchId,
             @RequestBody UploadKabaddiScore score){
+//        log.info("ERFdgfgddfgfdg");
+//        System.out.println("!wweewrdewrrwrewrewrewrewr");
         KabaddiMatch match = service.getKabaddiMatch(matchId);
         score.updateKabaddiScore(match);
         kabaddimatchdao.save(match);
+//        System.out.println("fgvbvbbbcbcvbbcvbcvcbvcb");
         return ResponseEntity.ok(score);
     }
     @MessageMapping("/startBadmintonMatch/{matchId}")
-    @SendTo("/public/scoreUpdates/{matchId}")
-    public ResponseEntity<BadmintonMatch> startBadmintonMatch(
+    @SendTo("/public/badmintonScoreUpdates/{matchId}")
+    public ResponseEntity startBadmintonMatch(
             @DestinationVariable("matchId") int matchId,
             @RequestBody UploadBadmintonScore score) {
 
@@ -63,32 +66,34 @@ public class MatchController {
         if (badmintonMatch != null && score.getStatus() == MatchStatus.ONGOING) {
             score.startBadmintonMatch(badmintonMatch);
             badMintonMatchdao.save(badmintonMatch);
-            return ResponseEntity.ok(badmintonMatch);
+            return ResponseEntity.ok(score);
         } else {
             throw new IllegalArgumentException("Match is not started.");
         }
     }
 
     @MessageMapping("/startKabaddiMatch/{matchId}")
-    @SendTo("/public/scoreUpdates/{matchId}")
-    public ResponseEntity<KabaddiMatch> startKabaddiMatch(
+    @SendTo("/public/kabaddiScoreUpdates/{matchId}")
+    public ResponseEntity startKabaddiMatch(
             @DestinationVariable("matchId") int matchId,
             @RequestBody UploadKabaddiScore score) {
 
         KabaddiMatch kabaddiMatch = service.getKabaddiMatch(matchId);
 
         if (kabaddiMatch != null && score.getStatus() == MatchStatus.ONGOING) {
+//            log.info("dfggfdgd");
             score.startKabaddiMatch(kabaddiMatch);
            kabaddimatchdao.save(kabaddiMatch);
-            return ResponseEntity.ok(kabaddiMatch);
+            return ResponseEntity.ok(score);
         } else {
             throw new IllegalArgumentException("Match is not started.");
         }
     }
 
     @MessageMapping("/endKabaddiMatch/{matchId}")
-    @SendTo("/public/scoreUpdates/{matchId}")
-    public ResponseEntity<UploadKabaddiScore> endKabaddiMatch(@DestinationVariable("matchId") int matchId,
+
+    @SendTo("/public/kabaddiScoreUpdates/{matchId}")
+    public ResponseEntity endKabaddiMatch(@DestinationVariable("matchId") int matchId,
                                                         @RequestBody UploadKabaddiScore score){
         KabaddiMatch kabaddiMatch = service.getKabaddiMatch(matchId);
         if(kabaddiMatch!=null && score.getStatus()==MatchStatus.COMPLETED){
@@ -101,9 +106,5 @@ public class MatchController {
         }
 
     }
-
-
-
-
 
 }
