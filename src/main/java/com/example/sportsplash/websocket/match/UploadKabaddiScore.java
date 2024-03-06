@@ -2,13 +2,12 @@ package com.example.sportsplash.websocket.match;
 
 import com.example.sportsplash.sports.KabaddiMatch;
 import com.example.sportsplash.sports.MatchStatus;
-import com.example.sportsplash.sports.PointType;
 import com.example.sportsplash.sports.Team;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+
 import java.util.Date;
 
 @Getter
@@ -39,20 +38,7 @@ public class UploadKabaddiScore {
 
 
     public void updateKabaddiScore(KabaddiMatch match) {
-        if (status != MatchStatus.ONGOING) {
-            setTeam1Score(match.getTeam1score());
-            setTeam2Score(match.getTeam2score());
-            setRaidPoints1(match.getTeam1RaidPoints());
-            setRaidPoints2(match.getTeam2RaidPoints());
-            setTacklePoints1(match.getTeam1TacklePoints());
-            setTacklePoints2(match.getTeam2RaidPoints());
-            setBonusPoints1(match.getTeam1BonusPoints());
-            setBonusPoints2(match.getTeam2BonusPoints());
-            setAlloutPoints1(match.getTeam1AllOutPoints());
-            setAlloutPoints2(match.getTeam2AllOutPoints());
-            setWinner(match.getWinner());
-            return;
-        }
+
 
         if (updateTeam == 1) {
             if (raidPoints1!=0) {
@@ -152,4 +138,19 @@ public class UploadKabaddiScore {
     }
 
 
+    public void endKabaddiMatch(KabaddiMatch match) {
+        setTeam1Score(match.getTeam1score());
+        setTeam2Score(match.getTeam2score());
+        setRaidPoints1(match.getTeam1RaidPoints());
+        setRaidPoints2(match.getTeam2RaidPoints());
+        setTacklePoints1(match.getTeam1TacklePoints());
+        setTacklePoints2(match.getTeam2RaidPoints());
+        setBonusPoints1(match.getTeam1BonusPoints());
+        setBonusPoints2(match.getTeam2BonusPoints());
+        setAlloutPoints1(match.getTeam1AllOutPoints());
+        setAlloutPoints2(match.getTeam2AllOutPoints());
+        setWinner(match.getWinner());
+
+
+    }
 }
