@@ -132,9 +132,6 @@ public class UploadKabaddiScore {
         kabaddiMatch.setTeam2BonusPoints(0);
         setBonusPoints2(0);
         kabaddiMatch.setMatchDate(new Date().toString());
-
-
-
     }
 
 
@@ -150,7 +147,5 @@ public class UploadKabaddiScore {
         setAlloutPoints1(match.getTeam1AllOutPoints());
         setAlloutPoints2(match.getTeam2AllOutPoints());
         setWinner(match.getWinner());
-
-
     }
 }
