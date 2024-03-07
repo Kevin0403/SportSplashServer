@@ -45,18 +45,20 @@ public class UploadKabaddiScore {
                 match.setRaidPoints1(match.getTacklePoints1() + raidPoints1);
                 match.setTeam1score(match.getTeam1score()+raidPoints1);
             }
-            else if (tacklePoints1!=0) {
+            if (tacklePoints1!=0) {
                 match.setRaidPoints2(match.getRaidPoints2() + tacklePoints1);
                 match.setTeam1score(match.getTeam1score()+tacklePoints1);
 
-            } else if (alloutPoints1!=0) {
+            }
+            if (alloutPoints1!=0) {
                 match.setAlloutPoints1(match.getAlloutPoints1() + alloutPoints1);
                 match.setTeam1score(match.getTeam1score()+ alloutPoints1);
-            } else if (bonusPoints1!=0) {
+            }
+            if (bonusPoints1!=0) {
                 match.setBonusPoints1(match.getBonusPoints1() + bonusPoints1);
                 match.setTeam1score(match.getTeam1score()+ bonusPoints1);
             }
-            else if(technicalPoints1!=0)
+            if(technicalPoints1!=0)
             {
                 match.setTechnicalPoints1(match.getTechnicalPoints1()+ technicalPoints1);
                 match.setTeam1score(match.getTeam1score()+ technicalPoints1);
@@ -68,21 +70,21 @@ public class UploadKabaddiScore {
                 match.setTeam2score(match.getTeam2score()+ raidPoints2);
 
             }
-            else if(tacklePoints2!=0){
+            if(tacklePoints2!=0){
                 match.setTacklePoints2(match.getTacklePoints2()+tacklePoints2 );
                 match.setTeam2score(match.getTeam2score()+ tacklePoints2);
 
             }
-            else if(alloutPoints2!=0){
+            if(alloutPoints2!=0){
                 match.setAlloutPoints2(match.getAlloutPoints2()+ alloutPoints2);
                 match.setTeam2score(match.getTeam2score()+ alloutPoints2);
             }
-            else if (bonusPoints2!=0) {
+            if (bonusPoints2!=0) {
                 match.setBonusPoints2(match.getBonusPoints2()+bonusPoints2);
                 match.setTeam2score(match.getTeam2score()+ bonusPoints2);
 
             }
-            else if(technicalPoints2!=0){
+            if(technicalPoints2!=0){
                 match.setTechnicalPoints2(match.getTechnicalPoints2()+ technicalPoints2);
                 match.setTeam2score(match.getTeam2score()+ technicalPoints2);
             }
@@ -90,44 +92,6 @@ public class UploadKabaddiScore {
 
        setTeam1score(match.getTeam1score());
         setTeam2score(match.getTeam2score());
-        if (team1score > team2score) {
-             winner= match.getTeam1();
-            match.setStatus(MatchStatus.COMPLETED);
-            setStatus(MatchStatus.COMPLETED);
-            match.setWinner(match.getTeam1());
-        } else if (team1score < team2score) {
-            winner = match.getTeam2();
-            match.setStatus(MatchStatus.COMPLETED);
-            setStatus(MatchStatus.COMPLETED);
-            match.setWinner(match.getTeam2());
-        } else {
-            winner = null;
-            match.setTie(true);
-            match.setStatus(MatchStatus.COMPLETED);
-            setStatus(MatchStatus.COMPLETED);
-            match.setWinner(null);
-        }
-
-        setTeam1score(match.getTeam1score());
-        setTeam2score(match.getTeam2score());
-       if (team1score > team2score) {
-           winner= match.getTeam1();
-           match.setStatus(MatchStatus.COMPLETED);
-            setStatus(MatchStatus.COMPLETED);
-            match.setWinner(match.getTeam1());
-        } else if (team1score < team2score) {
-            winner = match.getTeam2();
-            match.setStatus(MatchStatus.COMPLETED);
-            setStatus(MatchStatus.COMPLETED);
-            match.setWinner(match.getTeam2());
-        } else {
-            winner = null;
-            match.setTie(true);
-            match.setStatus(MatchStatus.COMPLETED);
-            setStatus(MatchStatus.COMPLETED);
-            match.setWinner(null);
-        }
-
     }
 
     public void startKabaddiMatch(KabaddiMatch kabaddiMatch) {
@@ -153,28 +117,18 @@ public class UploadKabaddiScore {
         setBonusPoints1(0);
         kabaddiMatch.setBonusPoints2(0);
         setBonusPoints2(0);
-        kabaddiMatch.setTeam2TechnicalPoints(0);
+        kabaddiMatch.setTechnicalPoints1(0);
         setTacklePoints2(0);
-        kabaddiMatch.setTeam1TechnicalPoints(0);
+        kabaddiMatch.setTechnicalPoints2(0);
         setTacklePoints1(0);
         kabaddiMatch.setMatchDate(new Date().toString());
     }
 
 
     public void endKabaddiMatch(KabaddiMatch match) {
-<<<<<<< HEAD
-        if(team1Score > team2Score){
-            match.setWinner(match.getTeam1());
-            setWinner(match.getWinner());
-        }
-        else {
-            match.setWinner(match.getTeam2());
-            setWinner(match.getTeam2());
-        }
-        match.setStatus(MatchStatus.COMPLETED);
-        setStatus(MatchStatus.COMPLETED);
 
-=======
+
+
         setTeam1score(match.getTeam1score());
        setTeam2score(match.getTeam2score());
         setRaidPoints1(match.getRaidPoints1());
@@ -186,6 +140,16 @@ public class UploadKabaddiScore {
         setAlloutPoints1(match.getAlloutPoints1());
         setAlloutPoints2(match.getAlloutPoints2());
         setWinner(match.getWinner());
->>>>>>> c2f513ce8a19f1571c6aadd9e6a9e7c877d91a6b
+        if(team1score > team2score){
+            match.setWinner(match.getTeam1());
+            setWinner(match.getWinner());
+        }
+        else {
+            match.setWinner(match.getTeam2());
+            setWinner(match.getTeam2());
+        }
+        match.setStatus(MatchStatus.COMPLETED);
+        setStatus(MatchStatus.COMPLETED);
+
     }
 }
