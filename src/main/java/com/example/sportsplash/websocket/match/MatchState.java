@@ -1,26 +1,53 @@
 package com.example.sportsplash.websocket.match;
 import com.example.sportsplash.sports.MatchStatus;
 import com.example.sportsplash.sports.Team;
+import jakarta.persistence.*;
 
+
+@Entity
 public class MatchState {
+
+
+    @Id@GeneratedValue(strategy = GenerationType.IDENTITY)
+    int id;
     private int team1Score;
     private int team2Score;
-    private Team winner;
+
     private MatchStatus status;
     private int requiredScore;
     private String endTime;
 
-    // Constructors
-    public MatchState(int team1Score, int team2Score, Team winner, MatchStatus status, int requiredScore, String endTime) {
+    @ManyToOne
+    Team winner;
+
+
+    public MatchState(int id, int team1Score, int team2Score, MatchStatus status, int requiredScore, String endTime, Team winner) {
+        this.id = id;
         this.team1Score = team1Score;
         this.team2Score = team2Score;
-        this.winner = winner;
         this.status = status;
         this.requiredScore = requiredScore;
         this.endTime = endTime;
+        this.winner = winner;
     }
 
-    // Getters and setters
+   
+
+    public MatchState() {
+        super();
+    }
+
+    public MatchState(int team1score, int team2score, MatchStatus status, int requiredScore, String endTime, Team winner) {
+    }
+
+    public Team getWinner() {
+        return winner;
+    }
+
+    public void setWinner(Team winner) {
+        this.winner = winner;
+    }
+
     public int getTeam1Score() {
         return team1Score;
     }
@@ -37,13 +64,7 @@ public class MatchState {
         this.team2Score = team2Score;
     }
 
-    public Team getWinner() {
-        return winner;
-    }
 
-    public void setWinner(Team winner) {
-        this.winner = winner;
-    }
 
     public MatchStatus getStatus() {
         return status;

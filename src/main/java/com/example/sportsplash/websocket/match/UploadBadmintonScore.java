@@ -1,15 +1,12 @@
 package com.example.sportsplash.websocket.match;
-
-
 import com.example.sportsplash.sports.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-
-import java.time.LocalTime;
 import java.util.Date;
+import java.util.Stack;
 
 @Getter
 @Setter
@@ -21,9 +18,11 @@ public class UploadBadmintonScore {
     int team2Score=0;
     Team winner;
     MatchStatus status;
-    private MatchState previousMatchState;
+    private Stack<MatchState> previousMatchStates = new Stack<>();
+
 
     public void updateBadmintonScore(BadmintonMatch match, boolean undo) {
+
         if (undo) {
             undoScore(match);
             return;
@@ -65,23 +64,21 @@ public class UploadBadmintonScore {
         }
 
 
-        previousMatchState = new MatchState(
-                match.getTeam1score(), match.getTeam2score(), match.getWinner(),
-                match.getStatus(), match.getRequiredScore(), match.getEndTime()
+        previousMatchStates.push( new MatchState(
+                match.getTeam1score(), match.getTeam2score(),
+                match.getStatus(), match.getRequiredScore(), match.getEndTime(),match.getWinner())
         );
     }
 
     private void undoScore(BadmintonMatch match) {
-        if (previousMatchState != null) {
-            match.setTeam1score(previousMatchState.getTeam1Score());
-            match.setTeam2score(previousMatchState.getTeam2Score());
-            match.setWinner(previousMatchState.getWinner());
-            match.setStatus(previousMatchState.getStatus());
-            match.setRequiredScore(previousMatchState.getRequiredScore());
-            match.setEndTime(previousMatchState.getEndTime());
-
-
-            previousMatchState = null;
+        if (!previousMatchStates.isEmpty()) {
+            MatchState previousState = previousMatchStates.pop();
+            match.setTeam1score(previousState.getTeam1Score());
+            match.setTeam2score(previousState.getTeam2Score());
+            match.setWinner(previousState.getWinner());
+            match.setStatus(previousState.getStatus());
+            match.setRequiredScore(previousState.getRequiredScore());
+            match.setEndTime(previousState.getEndTime());
         }
     }
 
