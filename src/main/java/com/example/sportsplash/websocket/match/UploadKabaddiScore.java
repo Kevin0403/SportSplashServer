@@ -40,7 +40,7 @@ public class UploadKabaddiScore {
     public void updateKabaddiScore(KabaddiMatch match) {
 
 
-        if (updateTeam == 1) {x
+        if (updateTeam == 1) {
             if (raidPoints1!=0) {
                 match.setRaidPoints1(match.getTacklePoints1() + raidPoints1);
                 match.setTeam1score(match.getTeam1score()+raidPoints1);

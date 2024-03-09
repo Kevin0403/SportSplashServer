@@ -37,21 +37,27 @@ public class UploadBadmintonScore {
         }
         setTeam1Score(match.getTeam1score());
         setTeam2Score(match.getTeam2score());
-        if (team1Score >= match.getRequiredScore()) {
-            winner = match.getTeam1();
-            match.setStatus(MatchStatus.COMPLETED);
-            match.setEndDate(new Date().toString());
-            setStatus(MatchStatus.COMPLETED);
-            match.setWinner(match.getTeam1());
-        }
-        if (team2Score >= match.getRequiredScore()) {
-            winner = match.getTeam2();
-            match.setStatus(MatchStatus.COMPLETED);
-            match.setEndDate(new Date().toString());
-            setStatus(MatchStatus.COMPLETED);
-            match.setWinner(match.getTeam2());
-        }
 
+        if(team1Score >= match.getRequiredScore() || team2Score >= match.getRequiredScore()) {
+            if(Math.abs(team2Score - team1Score) < 2)
+            {
+                match.setRequiredScore(match.getRequiredScore() + 1);
+            }
+            if (team1Score >= match.getRequiredScore()) {
+                winner = match.getTeam1();
+                match.setStatus(MatchStatus.COMPLETED);
+                match.setEndDate(new Date().toString());
+                setStatus(MatchStatus.COMPLETED);
+                match.setWinner(match.getTeam1());
+            }
+            if (team2Score >= match.getRequiredScore()) {
+                winner = match.getTeam2();
+                match.setStatus(MatchStatus.COMPLETED);
+                match.setEndDate(new Date().toString());
+                setStatus(MatchStatus.COMPLETED);
+                match.setWinner(match.getTeam2());
+            }
+        }
     }
 
 
