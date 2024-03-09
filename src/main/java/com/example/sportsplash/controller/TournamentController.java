@@ -11,7 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin("*")
+@CrossOrigin(allowedHeaders = "*")
+
 public class TournamentController {
     @Autowired
     private sportsservice sportsservice;
