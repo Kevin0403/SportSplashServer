@@ -21,15 +21,21 @@ public class UploadBadmintonScore {
     int team2Score=0;
     Team winner;
     MatchStatus status;
+    private MatchState previousMatchState;
 
+    public void updateBadmintonScore(BadmintonMatch match, boolean undo) {
+        if (undo) {
+            undoScore(match);
+            return;
+        }
 
-    public void updateBadmintonScore(BadmintonMatch match) {
         if (status != MatchStatus.ONGOING) {
             setTeam1Score(match.getTeam1score());
             setTeam2Score(match.getTeam2score());
             setWinner(match.getWinner());
             return;
         }
+
         if (updateTeam == 1) {
             match.setTeam1score(match.getTeam1score() + 1);
         } else {
@@ -38,9 +44,8 @@ public class UploadBadmintonScore {
         setTeam1Score(match.getTeam1score());
         setTeam2Score(match.getTeam2score());
 
-        if(team1Score >= match.getRequiredScore() || team2Score >= match.getRequiredScore()) {
-            if(Math.abs(team2Score - team1Score) < 2)
-            {
+        if (team1Score >= match.getRequiredScore() || team2Score >= match.getRequiredScore()) {
+            if (Math.abs(team2Score - team1Score) < 2) {
                 match.setRequiredScore(match.getRequiredScore() + 1);
             }
             if (team1Score >= match.getRequiredScore()) {
@@ -58,9 +63,27 @@ public class UploadBadmintonScore {
                 match.setWinner(match.getTeam2());
             }
         }
+
+
+        previousMatchState = new MatchState(
+                match.getTeam1score(), match.getTeam2score(), match.getWinner(),
+                match.getStatus(), match.getRequiredScore(), match.getEndTime()
+        );
     }
 
+    private void undoScore(BadmintonMatch match) {
+        if (previousMatchState != null) {
+            match.setTeam1score(previousMatchState.getTeam1Score());
+            match.setTeam2score(previousMatchState.getTeam2Score());
+            match.setWinner(previousMatchState.getWinner());
+            match.setStatus(previousMatchState.getStatus());
+            match.setRequiredScore(previousMatchState.getRequiredScore());
+            match.setEndTime(previousMatchState.getEndTime());
 
+
+            previousMatchState = null;
+        }
+    }
 
     public void startBadmintonMatch(BadmintonMatch badmintonMatch) {
         badmintonMatch.setStatus(MatchStatus.ONGOING);

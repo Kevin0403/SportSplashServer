@@ -36,9 +36,9 @@ public class MatchController {
     @SendTo("/public/badmintonScoreUpdates/{matchId}")
     public ResponseEntity<Object> updateBadmintonScore(
             @DestinationVariable("matchId") int matchId,
-            @RequestBody UploadBadmintonScore score){
+            @RequestBody UploadBadmintonScore score, boolean undo){
         BadmintonMatch match = service.getBadmintonMatch(matchId);
-        score.updateBadmintonScore(match);
+        score.updateBadmintonScore(match,undo);
         badMintonMatchdao.save(match);
         return ResponseEntity.ok(score);
     }
