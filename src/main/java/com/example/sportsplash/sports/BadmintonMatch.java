@@ -58,25 +58,13 @@ public class BadmintonMatch {
 
     String endTime;
 
-    String startDate;
-    String endDate;
+
 
     @ManyToOne
     private  Tournament tournament;
 
 
-    public BadmintonMatch(int id, int team1score, int team2score, Team team1, Team team2, String startTime, String endTime, String startDate, String endDate, Tournament tournament) {
-        this.id = id;
-        this.team1score = team1score;
-        this.team2score = team2score;
-        this.team1 = team1;
-        this.team2 = team2;
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.tournament = tournament;
-    }
+
 
     public BadmintonMatch() {
         super();
@@ -138,21 +126,7 @@ public class BadmintonMatch {
         this.endTime = endTime;
     }
 
-    public String getStartDate() {
-        return startDate;
-    }
 
-    public void setStartDate(String startDate) {
-        this.startDate = startDate;
-    }
-
-    public String getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(String endDate) {
-        this.endDate = endDate;
-    }
 
     public Tournament getTournament() {
         return tournament;
@@ -163,8 +137,22 @@ public class BadmintonMatch {
         this.tournament = tournament;
     }
 
+    public BadmintonMatch(int id, int team1score, int team2score, MatchStatus status, int requiredScore, Team team1, Team team2, Team winner, String startTime, String endTime, Tournament tournament) {
+        this.id = id;
+        this.team1score = team1score;
+        this.team2score = team2score;
+        this.status = status;
+        this.requiredScore = requiredScore;
+        this.team1 = team1;
+        this.team2 = team2;
+        this.winner = winner;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.tournament = tournament;
+    }
+
     @Override
-    public String  toString() {
+    public String toString() {
         return "BadmintonMatch{" +
                 "id=" + id +
                 ", team1score=" + team1score +
@@ -176,8 +164,6 @@ public class BadmintonMatch {
                 ", winner=" + winner +
                 ", startTime='" + startTime + '\'' +
                 ", endTime='" + endTime + '\'' +
-                ", startDate='" + startDate + '\'' +
-                ", endDate='" + endDate + '\'' +
                 ", tournament=" + tournament +
                 '}';
     }

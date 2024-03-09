@@ -20,7 +20,7 @@ public class KabaddiMatch {
     private Team winner;
     String startTime;
     String endTime;
-    String matchDate;
+
     @ManyToOne
     private  Tournament tournament;
 
@@ -37,58 +37,6 @@ public class KabaddiMatch {
     int technicalPoints1;
     int technicalPoints2;
 
-    public KabaddiMatch(int id, int team1score, int team2score, Team team1, Team team2, Team winner, String startTime, String endTime, String matchDate, Tournament tournament, MatchStatus status, boolean tie, int raidPoints1, int raidPoints2, int tacklePoints1, int tacklePoints2, int bonusPoints1, int bonusPoints2, int alloutPoints1, int alloutPoints2, int technicalPoints1, int technicalPoints2) {
-        this.id = id;
-        this.team1score = team1score;
-        this.team2score = team2score;
-        this.team1 = team1;
-        this.team2 = team2;
-        this.winner = winner;
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.matchDate = matchDate;
-        this.tournament = tournament;
-        this.status = status;
-        this.tie = tie;
-        this.raidPoints1 = raidPoints1;
-        this.raidPoints2 = raidPoints2;
-        this.tacklePoints1 = tacklePoints1;
-        this.tacklePoints2 = tacklePoints2;
-        this.bonusPoints1 = bonusPoints1;
-        this.bonusPoints2 = bonusPoints2;
-        this.alloutPoints1 = alloutPoints1;
-        this.alloutPoints2 = alloutPoints2;
-        this.technicalPoints1 = technicalPoints1;
-        this.technicalPoints2 = technicalPoints2;
-    }
-
-    @Override
-    public String toString() {
-        return "KabaddiMatch{" +
-                "id=" + id +
-                ", team1score=" + team1score +
-                ", team2score=" + team2score +
-                ", team1=" + team1 +
-                ", team2=" + team2 +
-                ", winner=" + winner +
-                ", startTime='" + startTime + '\'' +
-                ", endTime='" + endTime + '\'' +
-                ", matchDate='" + matchDate + '\'' +
-                ", tournament=" + tournament +
-                ", status=" + status +
-                ", tie=" + tie +
-                ", raidPoints1=" + raidPoints1 +
-                ", raidPoints2=" + raidPoints2 +
-                ", tacklePoints1=" + tacklePoints1 +
-                ", tacklePoints2=" + tacklePoints2 +
-                ", bonusPoints1=" + bonusPoints1 +
-                ", bonusPoints2=" + bonusPoints2 +
-                ", alloutPoints1=" + alloutPoints1 +
-                ", alloutPoints2=" + alloutPoints2 +
-                ", technicalPoints1=" + technicalPoints1 +
-                ", technicalPoints2=" + technicalPoints2 +
-                '}';
-    }
 
 
     public int getRaidPoints1() {
@@ -239,13 +187,7 @@ public class KabaddiMatch {
         this.endTime = endTime;
     }
 
-    public String getMatchDate() {
-        return matchDate;
-    }
 
-    public void setMatchDate(String matchDate) {
-        this.matchDate = matchDate;
-    }
 
     public Tournament getTournament() {
         return tournament;
@@ -275,5 +217,54 @@ public class KabaddiMatch {
         this.id = id;
     }
 
+    public KabaddiMatch(int id, int team1score, int team2score, Team team1, Team team2, Team winner, String startTime, String endTime, Tournament tournament, MatchStatus status, boolean tie, int raidPoints1, int raidPoints2, int tacklePoints1, int tacklePoints2, int bonusPoints1, int bonusPoints2, int alloutPoints1, int alloutPoints2, int technicalPoints1, int technicalPoints2) {
+        this.id = id;
+        this.team1score = team1score;
+        this.team2score = team2score;
+        this.team1 = team1;
+        this.team2 = team2;
+        this.winner = winner;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.tournament = tournament;
+        this.status = status;
+        this.tie = tie;
+        this.raidPoints1 = raidPoints1;
+        this.raidPoints2 = raidPoints2;
+        this.tacklePoints1 = tacklePoints1;
+        this.tacklePoints2 = tacklePoints2;
+        this.bonusPoints1 = bonusPoints1;
+        this.bonusPoints2 = bonusPoints2;
+        this.alloutPoints1 = alloutPoints1;
+        this.alloutPoints2 = alloutPoints2;
+        this.technicalPoints1 = technicalPoints1;
+        this.technicalPoints2 = technicalPoints2;
+    }
 
+    @Override
+    public String toString() {
+        return "KabaddiMatch{" +
+                "id=" + id +
+                ", team1score=" + team1score +
+                ", team2score=" + team2score +
+                ", team1=" + team1 +
+                ", team2=" + team2 +
+                ", winner=" + winner +
+                ", startTime='" + startTime + '\'' +
+                ", endTime='" + endTime + '\'' +
+                ", tournament=" + tournament +
+                ", status=" + status +
+                ", tie=" + tie +
+                ", raidPoints1=" + raidPoints1 +
+                ", raidPoints2=" + raidPoints2 +
+                ", tacklePoints1=" + tacklePoints1 +
+                ", tacklePoints2=" + tacklePoints2 +
+                ", bonusPoints1=" + bonusPoints1 +
+                ", bonusPoints2=" + bonusPoints2 +
+                ", alloutPoints1=" + alloutPoints1 +
+                ", alloutPoints2=" + alloutPoints2 +
+                ", technicalPoints1=" + technicalPoints1 +
+                ", technicalPoints2=" + technicalPoints2 +
+                '}';
+    }
 }

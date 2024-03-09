@@ -46,14 +46,14 @@ public class UploadBadmintonScore {
             if (team1Score >= match.getRequiredScore()) {
                 winner = match.getTeam1();
                 match.setStatus(MatchStatus.COMPLETED);
-                match.setEndDate(new Date().toString());
+                match.setEndTime(new Date().toString());
                 setStatus(MatchStatus.COMPLETED);
                 match.setWinner(match.getTeam1());
             }
             if (team2Score >= match.getRequiredScore()) {
                 winner = match.getTeam2();
                 match.setStatus(MatchStatus.COMPLETED);
-                match.setEndDate(new Date().toString());
+                match.setEndTime(new Date().toString());
                 setStatus(MatchStatus.COMPLETED);
                 match.setWinner(match.getTeam2());
             }
@@ -69,8 +69,8 @@ public class UploadBadmintonScore {
         setTeam1Score(0);
         badmintonMatch.setTeam2score(0);
         setTeam2Score(0);
-        badmintonMatch.setStartDate(new Date().toString());
-        badmintonMatch.setEndDate(new Date().toString());
+        badmintonMatch.setStartTime(new Date().toString());
+
 
 
     }

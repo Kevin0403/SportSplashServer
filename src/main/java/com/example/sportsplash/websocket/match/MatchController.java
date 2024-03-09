@@ -47,12 +47,9 @@ public class MatchController {
     public ResponseEntity<Object> updateKabaddiScore(
             @DestinationVariable("matchId") int matchId,
             @RequestBody UploadKabaddiScore score){
-//        log.info("ERFdgfgddfgfdg");
-//        System.out.println("!wweewrdewrrwrewrewrewrewr");
         KabaddiMatch match = service.getKabaddiMatch(matchId);
         score.updateKabaddiScore(match);
         kabaddimatchdao.save(match);
-//        System.out.println("fgvbvbbbcbcvbbcvbcvcbvcb");
         return ResponseEntity.ok(score);
     }
     @MessageMapping("/startBadmintonMatch/{matchId}")

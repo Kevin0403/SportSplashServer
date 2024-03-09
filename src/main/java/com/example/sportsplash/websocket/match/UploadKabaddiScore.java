@@ -32,7 +32,7 @@ public class UploadKabaddiScore {
     Team winner;
     MatchStatus status;
     int points=0;
-   //PointType type;
+
 
 
 
@@ -121,13 +121,12 @@ public class UploadKabaddiScore {
         setTacklePoints2(0);
         kabaddiMatch.setTechnicalPoints2(0);
         setTacklePoints1(0);
-        kabaddiMatch.setMatchDate(new Date().toString());
+        kabaddiMatch.setStartTime(new Date().toString());
+
     }
 
 
     public void endKabaddiMatch(KabaddiMatch match) {
-
-
 
         setTeam1score(match.getTeam1score());
        setTeam2score(match.getTeam2score());
@@ -139,7 +138,8 @@ public class UploadKabaddiScore {
         setBonusPoints2(match.getBonusPoints2());
         setAlloutPoints1(match.getAlloutPoints1());
         setAlloutPoints2(match.getAlloutPoints2());
-        setWinner(match.getWinner());
+
+
         if(team1score > team2score){
             match.setWinner(match.getTeam1());
             setWinner(match.getWinner());
@@ -150,6 +150,7 @@ public class UploadKabaddiScore {
         }
         match.setStatus(MatchStatus.COMPLETED);
         setStatus(MatchStatus.COMPLETED);
+        match.setEndTime(new Date().toString());
 
     }
 }
