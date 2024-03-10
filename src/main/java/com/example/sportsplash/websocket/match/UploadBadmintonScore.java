@@ -1,11 +1,14 @@
 package com.example.sportsplash.websocket.match;
+import com.example.sportsplash.dao.BadmintonMatchStatusDao;
 import com.example.sportsplash.sports.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import java.util.Date;
+import java.util.Optional;
 import java.util.Stack;
 
 @Getter
@@ -13,20 +16,18 @@ import java.util.Stack;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UploadBadmintonScore {
+
+    BadmintonMatchState matchState;
+
     int updateTeam;
     int team1Score=0;
     int team2Score=0;
     Team winner;
     MatchStatus status;
-    private Stack<MatchState> previousMatchStates = new Stack<>();
+    Boolean undo = false;
 
 
-    public void updateBadmintonScore(BadmintonMatch match, boolean undo) {
-
-        if (undo) {
-            undoScore(match);
-            return;
-        }
+    public void updateBadmintonScore(BadmintonMatch match) {
 
         if (status != MatchStatus.ONGOING) {
             setTeam1Score(match.getTeam1score());
@@ -64,34 +65,47 @@ public class UploadBadmintonScore {
         }
 
 
-        previousMatchStates.push( new MatchState(
-                match.getTeam1score(), match.getTeam2score(),
-                match.getStatus(), match.getRequiredScore(), match.getEndTime(),match.getWinner())
-        );
+        BadmintonMatchState badmintonMatchState = new BadmintonMatchState();
+        badmintonMatchState.setMatch(match);
+        badmintonMatchState.setTeam1Score(team1Score);
+        badmintonMatchState.setTeam2Score(team2Score);
+        badmintonMatchState.setStatus(status);
+        badmintonMatchState.setRequiredScore(match.getRequiredScore());
+        setMatchState(badmintonMatchState);
     }
 
-    private void undoScore(BadmintonMatch match) {
-        if (!previousMatchStates.isEmpty()) {
-            MatchState previousState = previousMatchStates.pop();
-            match.setTeam1score(previousState.getTeam1Score());
-            match.setTeam2score(previousState.getTeam2Score());
-            match.setWinner(previousState.getWinner());
-            match.setStatus(previousState.getStatus());
-            match.setRequiredScore(previousState.getRequiredScore());
-            match.setEndTime(previousState.getEndTime());
+    public void undoScore(BadmintonMatch match, BadmintonMatchState state) {
+        if(state != null){
+            // updates in match
+            match.setStatus(state.getStatus());
+            match.setRequiredScore(state.getRequiredScore());
+            match.setTeam1score(state.getTeam1Score());
+            match.setTeam2score(state.getTeam2Score());
+
+            // updates in current variables
+            setStatus(state.getStatus());
+            setTeam1Score(state.getTeam1Score());
+            setTeam2Score(state.getTeam2Score());
         }
     }
 
     public void startBadmintonMatch(BadmintonMatch badmintonMatch) {
-        badmintonMatch.setStatus(MatchStatus.ONGOING);
-        setStatus(MatchStatus.ONGOING);
+
         badmintonMatch.setTeam1score(0);
         setTeam1Score(0);
         badmintonMatch.setTeam2score(0);
         setTeam2Score(0);
         badmintonMatch.setStartTime(new Date().toString());
 
+        BadmintonMatchState badmintonMatchState = new BadmintonMatchState();
+        badmintonMatchState.setMatch(badmintonMatch);
+        badmintonMatchState.setTeam1Score(team1Score);
+        badmintonMatchState.setTeam2Score(team2Score);
+        badmintonMatchState.setStatus(MatchStatus.UPCOMING);
+        badmintonMatchState.setRequiredScore(badmintonMatchState.getRequiredScore());
+        setMatchState(badmintonMatchState);
 
-
+        badmintonMatch.setStatus(MatchStatus.ONGOING);
+        setStatus(MatchStatus.ONGOING);
     }
 }

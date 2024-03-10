@@ -2,12 +2,17 @@ package com.example.sportsplash.sports;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 public class KabaddiMatch {
     @Id@GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
     int team1score = 0;
     int team2score = 0;
+
+    @OneToMany(mappedBy = "match", cascade = CascadeType.ALL)
+    private List<KabaddiMatchState> matchStates;
     @ManyToOne
     @JoinColumn(name = "team1_fk",referencedColumnName = "id")
     private Team team1;

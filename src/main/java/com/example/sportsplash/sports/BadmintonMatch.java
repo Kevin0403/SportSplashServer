@@ -1,8 +1,10 @@
 package com.example.sportsplash.sports;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.Cascade;
 
 import java.util.List;
+
 
 @Entity
 public class BadmintonMatch {
@@ -12,7 +14,8 @@ public class BadmintonMatch {
     int team2score = 0;
 
 
-
+    @OneToMany(mappedBy = "match", cascade = CascadeType.ALL)
+    private List<BadmintonMatchState> matchStates;
 
 
     public MatchStatus getStatus() {

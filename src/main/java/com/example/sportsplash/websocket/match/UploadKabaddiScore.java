@@ -1,6 +1,7 @@
 package com.example.sportsplash.websocket.match;
 
 import com.example.sportsplash.sports.KabaddiMatch;
+import com.example.sportsplash.sports.KabaddiMatchState;
 import com.example.sportsplash.sports.MatchStatus;
 import com.example.sportsplash.sports.Team;
 import lombok.AllArgsConstructor;
@@ -15,6 +16,9 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UploadKabaddiScore {
+
+    boolean undo = false;
+    KabaddiMatchState matchState = null;
 
     int updateTeam;
     int team1score=0;
@@ -37,7 +41,11 @@ public class UploadKabaddiScore {
 
 
 
+
+
     public void updateKabaddiScore(KabaddiMatch match) {
+        updateMatchState(match);
+        setStatus(match.getStatus());
 
 
         if (updateTeam == 1) {
@@ -90,7 +98,7 @@ public class UploadKabaddiScore {
             }
         }
 
-       setTeam1score(match.getTeam1score());
+        setTeam1score(match.getTeam1score());
         setTeam2score(match.getTeam2score());
     }
 
@@ -122,6 +130,60 @@ public class UploadKabaddiScore {
         kabaddiMatch.setTechnicalPoints2(0);
         setTacklePoints1(0);
         kabaddiMatch.setStartTime(new Date().toString());
+        updateMatchState(kabaddiMatch);
+        matchState.setStatus(MatchStatus.UPCOMING);
+
+    }
+
+    public void undoScore(KabaddiMatch match, KabaddiMatchState kabaddiMatchState){
+
+        match.setStatus(kabaddiMatchState.getStatus());
+        match.setTeam1score(kabaddiMatchState.getTeam1score());
+        match.setTeam2score(kabaddiMatchState.getTeam2score());
+        match.setTechnicalPoints2(kabaddiMatchState.getTechnicalPoints2());
+        match.setTechnicalPoints1(kabaddiMatchState.getTechnicalPoints1());
+        match.setTacklePoints1(kabaddiMatchState.getTacklePoints1());
+        match.setTacklePoints2(kabaddiMatchState.getTacklePoints2());
+        match.setRaidPoints1(kabaddiMatchState.getRaidPoints1());
+        match.setRaidPoints2(kabaddiMatchState.getRaidPoints2());
+        match.setBonusPoints1(kabaddiMatchState.getBonusPoints1());
+        match.setBonusPoints2(kabaddiMatchState.getBonusPoints2());
+        match.setAlloutPoints1(kabaddiMatchState.getAlloutPoints1());
+        match.setAlloutPoints2(kabaddiMatchState.getAlloutPoints2());
+
+        setStatus(kabaddiMatchState.getStatus());
+        setTeam1score(kabaddiMatchState.getTeam1score());
+        setTeam2score(kabaddiMatchState.getTeam2score());
+        setTechnicalPoints2(kabaddiMatchState.getTechnicalPoints2());
+        setTechnicalPoints1(kabaddiMatchState.getTechnicalPoints1());
+        setTacklePoints1(kabaddiMatchState.getTacklePoints1());
+        setTacklePoints2(kabaddiMatchState.getTacklePoints2());
+        setRaidPoints1(kabaddiMatchState.getRaidPoints1());
+        setRaidPoints2(kabaddiMatchState.getRaidPoints2());
+        setBonusPoints1(kabaddiMatchState.getBonusPoints1());
+        setBonusPoints2(kabaddiMatchState.getBonusPoints2());
+        setAlloutPoints1(kabaddiMatchState.getAlloutPoints1());
+        setAlloutPoints2(kabaddiMatchState.getAlloutPoints2());
+
+
+    }
+
+    public void updateMatchState(KabaddiMatch match){
+        matchState = new KabaddiMatchState();
+        matchState.setStatus(match.getStatus());
+        matchState.setTeam1score(match.getTeam1score());
+        matchState.setTeam2score(match.getTeam2score());
+        matchState.setTechnicalPoints2(match.getTechnicalPoints2());
+        matchState.setTechnicalPoints1(match.getTechnicalPoints1());
+        matchState.setTacklePoints1(match.getTacklePoints1());
+        matchState.setTacklePoints2(match.getTacklePoints2());
+        matchState.setRaidPoints1(match.getRaidPoints1());
+        matchState.setRaidPoints2(match.getRaidPoints2());
+        matchState.setBonusPoints1(match.getBonusPoints1());
+        matchState.setBonusPoints2(match.getBonusPoints2());
+        matchState.setAlloutPoints1(match.getAlloutPoints1());
+        matchState.setAlloutPoints2(match.getAlloutPoints2());
+        matchState.setMatch(match);
 
     }
 
