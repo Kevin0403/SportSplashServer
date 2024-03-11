@@ -50,11 +50,11 @@ public class UploadKabaddiScore {
 
         if (updateTeam == 1) {
             if (raidPoints1!=0) {
-                match.setRaidPoints1(match.getTacklePoints1() + raidPoints1);
+                match.setRaidPoints1(match.getRaidPoints1() + raidPoints1);
                 match.setTeam1score(match.getTeam1score()+raidPoints1);
             }
             if (tacklePoints1!=0) {
-                match.setRaidPoints1(match.getRaidPoints1() + tacklePoints1);
+                match.setTacklePoints1(match.getTacklePoints1() + tacklePoints1);
                 match.setTeam1score(match.getTeam1score()+tacklePoints1);
 
             }
@@ -98,8 +98,20 @@ public class UploadKabaddiScore {
             }
         }
 
+        setStatus(match.getStatus());
         setTeam1score(match.getTeam1score());
         setTeam2score(match.getTeam2score());
+        setTechnicalPoints2(match.getTechnicalPoints2());
+        setTechnicalPoints1(match.getTechnicalPoints1());
+        setTacklePoints1(match.getTacklePoints1());
+        setTacklePoints2(match.getTacklePoints2());
+        setRaidPoints1(match.getRaidPoints1());
+         setRaidPoints2(match.getRaidPoints2());
+        setBonusPoints1(match.getBonusPoints1());
+        setBonusPoints2(match.getBonusPoints2());
+        setAlloutPoints1(match.getAlloutPoints1());
+        setAlloutPoints2(match.getAlloutPoints2());
+
     }
 
     public void startKabaddiMatch(KabaddiMatch kabaddiMatch) {
