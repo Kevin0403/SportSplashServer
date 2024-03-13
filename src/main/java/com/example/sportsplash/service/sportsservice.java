@@ -1,6 +1,7 @@
 package com.example.sportsplash.service;
 
 import com.example.sportsplash.sports.*;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.FileNotFoundException;
@@ -14,7 +15,7 @@ public interface sportsservice {
     public User createUser(User s);
     public User updateUser(User s);
     public void deleteUser(String email);
-    public Tournament createTournament(Tournament t);
+    public ResponseEntity createTournament(Tournament t);
     public Team createTeam(Team t);
     InputStream getResource(String path, String fileName) throws FileNotFoundException;
 

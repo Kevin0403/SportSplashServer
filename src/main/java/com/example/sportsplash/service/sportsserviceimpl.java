@@ -3,6 +3,7 @@ package com.example.sportsplash.service;
 import com.example.sportsplash.dao.*;
 import com.example.sportsplash.sports.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -166,7 +167,7 @@ public class sportsserviceimpl implements sportsservice{
     }
 
     @Override
-    public Tournament createTournament(Tournament t) {
+    public ResponseEntity createTournament(Tournament t) {
         User existingUser = sd.findByEmail(t.getUser().getEmail());
 
         if (existingUser == null) {
@@ -182,8 +183,12 @@ public class sportsserviceimpl implements sportsservice{
             throw new IllegalArgumentException("User cannot be null in the tournament.");
         }
 
+        if(t.getEndDate().before(t.getStartDate())){
+            return ResponseEntity.badRequest().body("End date should be after start date");
+        }
+
         td.save(t);
-        return t;
+        return ResponseEntity.ok(t);
     }
 
     @Override

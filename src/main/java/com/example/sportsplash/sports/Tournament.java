@@ -29,8 +29,10 @@ public class Tournament {
 
     Game game;
 
+    @Future
     Date startDate;
 
+    @Future
     Date endDate;
 
     int teamSize;

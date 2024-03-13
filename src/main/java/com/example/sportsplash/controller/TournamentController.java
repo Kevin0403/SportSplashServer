@@ -2,24 +2,29 @@ package com.example.sportsplash.controller;
 
 import com.example.sportsplash.service.sportsservice;
 import com.example.sportsplash.sports.Tournament;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @CrossOrigin(allowedHeaders = "*")
-
 public class TournamentController {
     @Autowired
     private sportsservice sportsservice;
 
     /*For creating the tournament*/
     @PostMapping("/tournaments")
-    public Tournament createTournament(@RequestBody Tournament tournament) {
+    public ResponseEntity createTournament(@Valid @RequestBody Tournament tournament, BindingResult result) {
+        if(result.hasErrors()){
+            return   ResponseEntity.badRequest().body("Please Enter a valid date");
+        }
         return this.sportsservice.createTournament(tournament);}
 
     /*For getting all the tournaments created*/
