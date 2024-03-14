@@ -57,7 +57,7 @@ public class UserController {
         return  this.sportsservice.getAlltheTournamentsByUserEmail(email);
     }
 
-    @GetMapping("/getmatchesbyuser/{email}")
+    @GetMapping("/getusermatches/{email}")
     public List<Object> getAlltheMatchesByUserEmail(@PathVariable String email){
         return  this.sportsservice.getAlltheMAtchesByUserEmail(email);
     }
