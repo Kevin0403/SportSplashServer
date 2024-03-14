@@ -12,7 +12,7 @@ public interface kabaddimatchdao extends JpaRepository<KabaddiMatch,Integer> {
    List<KabaddiMatch> findKabaddiMatchByTournamentId(int tournamentId);
 
    @Query("SELECT t FROM KabaddiMatch  t WHERE t.tournament.isdefault=true AND t.tournament.user.email=:email ORDER BY t.id DESC ")
-   List<BadmintonMatch> findKabaddiMatchByUserId(String email);
+   List<KabaddiMatch> findKabaddiMatchByUserId(String email);
    KabaddiMatch findById(int id);
 
 }
