@@ -2,5 +2,9 @@ package com.example.sportsplash.sports;
 
 public enum Game {
     BADMINTON,
-    KABADDI
+    KABADDI,
+
+    TABLETENNIS,
+    VOLLEYBALL
+
 }
