@@ -32,7 +32,7 @@ public class BadmintonMatch {
         return requiredScore;
     }
 
-    int requiredScore = 21;
+    int requiredScore = 0;
 
     public void setRequiredScore(int requiredScore) {
         this.requiredScore = requiredScore;

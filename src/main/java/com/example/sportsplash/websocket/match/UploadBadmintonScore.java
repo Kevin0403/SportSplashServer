@@ -25,6 +25,7 @@ public class UploadBadmintonScore {
     Team winner;
     MatchStatus status;
     Boolean undo = false;
+    int requiredScore=0;
 
 
     public void updateBadmintonScore(BadmintonMatch match) {
@@ -43,6 +44,23 @@ public class UploadBadmintonScore {
         }
         setTeam1Score(match.getTeam1score());
         setTeam2Score(match.getTeam2score());
+          if(team1Score==0 && team2Score==7){
+              winner=match.getTeam2();
+              match.setStatus(MatchStatus.COMPLETED);
+              match.setEndTime(new Date().toString());
+              setStatus(MatchStatus.COMPLETED);
+              match.setWinner(match.getTeam2());
+
+          }
+          if(team1Score==7 && team2Score==0){
+              winner=match.getTeam1();
+              match.setStatus(MatchStatus.COMPLETED);
+              match.setEndTime(new Date().toString());
+              setStatus(MatchStatus.COMPLETED);
+              match.setWinner(match.getTeam1());
+
+
+          }
 
         if (team1Score >= match.getRequiredScore() || team2Score >= match.getRequiredScore()) {
             if (Math.abs(team2Score - team1Score) < 2) {
@@ -86,7 +104,10 @@ public class UploadBadmintonScore {
     }
 
     public void startBadmintonMatch(BadmintonMatch badmintonMatch) {
-
+        if(requiredScore!=0)
+        {
+              badmintonMatch.setRequiredScore(getRequiredScore());
+        }
         badmintonMatch.setTeam1score(0);
         setTeam1Score(0);
         badmintonMatch.setTeam2score(0);
