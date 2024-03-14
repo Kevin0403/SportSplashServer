@@ -83,4 +83,7 @@ public interface sportsservice {
     List<Object> getAlltheMatches();
 
 
+    List<Tournament> getAlltheTournamentsByUserEmail(String email);
+
+    List<Object> getAlltheMAtchesByUserEmail(String email);
 }

@@ -16,6 +16,8 @@ public interface tournamentdao extends JpaRepository<Tournament,String> {
     Tournament getReferenceById(int id);
     @Query("SELECT t FROM Tournament t WHERE t.user.email = :email AND t.isdefault = true AND t.game = :game")
     Tournament findAllTournamentsByUserEmail(String email, Game game);
+    @Query("SELECT t FROM Tournament t WHERE t.user.email = :email AND t.isdefault = false")
+    List<Tournament> findAllTournamentsByUserId(String email);
 
     @Query("SELECT t FROM Tournament t WHERE t.isdefault = false")
     List<Tournament> findAll();

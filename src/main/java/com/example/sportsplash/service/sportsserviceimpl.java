@@ -90,6 +90,7 @@ public class sportsserviceimpl implements sportsservice{
     }
     @Override
     public List<Player> getPlayersForTeam(int teamId) {
+
         return pd.findPlayersByTeamId(teamId);
     }
 
@@ -589,6 +590,23 @@ public class sportsserviceimpl implements sportsservice{
         allMatches.addAll(badMintonMatchdao.findAll());
         allMatches.addAll(kabaddimatchdao.findAll());
         return allMatches;
+    }
+
+
+
+    @Override
+    public List<Tournament> getAlltheTournamentsByUserEmail(String email) {
+        return td.findAllTournamentsByUserId(email);
+
+
+    }
+
+    @Override
+    public List<Object> getAlltheMAtchesByUserEmail(String email) {
+        List<Object> allmatches=new ArrayList<>();
+        allmatches.addAll(badMintonMatchdao.findBadmintonMatchByUserId(email));
+        allmatches.addAll(kabaddimatchdao.findKabaddiMatchByUserId(email));
+        return  allmatches;
     }
 }
 

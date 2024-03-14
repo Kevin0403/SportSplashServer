@@ -76,13 +76,9 @@ public class UploadBadmintonScore {
 
     public void undoScore(BadmintonMatch match, BadmintonMatchState state) {
         if(state != null){
-            // updates in match
-            match.setStatus(state.getStatus());
             match.setRequiredScore(state.getRequiredScore());
             match.setTeam1score(state.getTeam1Score());
             match.setTeam2score(state.getTeam2Score());
-
-            // updates in current variables
             setStatus(state.getStatus());
             setTeam1Score(state.getTeam1Score());
             setTeam2Score(state.getTeam2Score());
@@ -96,7 +92,6 @@ public class UploadBadmintonScore {
         badmintonMatch.setTeam2score(0);
         setTeam2Score(0);
         badmintonMatch.setStartTime(new Date().toString());
-
         BadmintonMatchState badmintonMatchState = new BadmintonMatchState();
         badmintonMatchState.setMatch(badmintonMatch);
         badmintonMatchState.setTeam1Score(team1Score);

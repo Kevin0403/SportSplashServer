@@ -46,8 +46,8 @@ public class MatchController {
             @DestinationVariable("matchId") int matchId,
             @RequestBody UploadBadmintonScore score){
         BadmintonMatch match = service.getBadmintonMatch(matchId);
-        if(score.getUndo()){
-            List<BadmintonMatchState> state =  badmintonMatchStatusDao.findLastStatusByMatchId(matchId);
+        if(score.getUndo()) {
+            List<BadmintonMatchState> state = badmintonMatchStatusDao.findLastStatusByMatchId(matchId);
             score.undoScore(match, state.get(0));
             badmintonMatchStatusDao.delete(state.get(0));
             badMintonMatchdao.save(match);

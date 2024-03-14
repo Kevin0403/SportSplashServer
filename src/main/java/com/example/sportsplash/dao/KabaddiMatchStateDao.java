@@ -12,4 +12,6 @@ public interface KabaddiMatchStateDao extends JpaRepository<KabaddiMatchState, I
 
     @Query("SELECT bms FROM KabaddiMatchState bms WHERE bms.match.id = :matchId ORDER BY bms.id DESC")
     List<KabaddiMatchState> findLastStatusByMatchId(@Param("matchId") int matchId);
+
+
 }

@@ -1,6 +1,7 @@
 package com.example.sportsplash.controller;
 
 import com.example.sportsplash.service.sportsservice;
+import com.example.sportsplash.sports.Tournament;
 import com.example.sportsplash.sports.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -51,5 +52,13 @@ public class UserController {
     public List<Object> getAlltheMatches(){
         return this.sportsservice.getAlltheMatches();
     }
+    @GetMapping("/getTournaments/{email}")
+    public List<Tournament> getAlltheTournamentsByUserEmail(@PathVariable String  email){
+        return  this.sportsservice.getAlltheTournamentsByUserEmail(email);
+    }
 
+    @GetMapping("/getmatchesbyuser/{email}")
+    public List<Object> getAlltheMatchesByUserEmail(@PathVariable String email){
+        return  this.sportsservice.getAlltheMAtchesByUserEmail(email);
+    }
 }

@@ -1,5 +1,4 @@
 package com.example.sportsplash.sports;
-
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.FutureOrPresent;
@@ -30,10 +29,12 @@ public class Tournament {
     Game game;
 
     @Future
-    Date startDate;
+
+    private Date startDate;
 
     @Future
-    Date endDate;
+
+    private Date endDate;
 
     int teamSize;
 
