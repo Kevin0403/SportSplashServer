@@ -107,6 +107,9 @@ public class sportsserviceimpl implements sportsservice{
 
     @Override
     public User createUser(User s) {
+        if(sd.findByEmail(s.getEmail())!=null){
+            throw new IllegalArgumentException("User already exists");
+        }
         sd.save(s);
 
         for (Game game : Game.values()) {
